@@ -1,3 +1,4 @@
+
 import MySQLdb
 
 __author__ = 'danga_000'
@@ -21,6 +22,13 @@ def get_cursor_from_query(query):
     cur.execute(query)
     return cur
 
+def insert(self, query):
+    try:
+        self.cursor.execute(query)
+        self.connection.commit()
+    except:
+
+        self.connection.rollback()
 
 # class Database:
 #
