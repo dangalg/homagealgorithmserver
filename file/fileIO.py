@@ -1,6 +1,6 @@
 __author__ = 'danga_000'
 
-# put files to location
+# TODO put files to location
 
 
-# get files from location
+# TODO get files from location

@@ -41,3 +41,29 @@ def get_video_by_name(name):
     row = cursor.fetchone()
     vid = Video(row[0],row[1],row[2],row[3],row[4])
     return vid
+
+def insert_video(video):
+    # Prepare SQL query to INSERT a record into the database.
+    query = """INSERT INTO Videos(video_id,
+         video_name, num_of_frames, video_path, ffmpeg)
+         VALUES ({0}, '{1}', {2}, '{3}', {4})""".format(video.videoid,video.videoname,video.numofframes,video.path,video.ffmpeg)
+    try:
+        cursor = db.get_cursor_from_query(query)
+        # Commit your changes in the database
+        db.get_connection().commit()
+    except:
+        # Rollback in case there is any error
+        db.get_connection().rollback()
+        # TODO log error
+
+def update_video_by_id(id,video):
+    # Prepare SQL query to UPDATE required records
+    query = "UPDATE Videos SET video_name = '{0}', num_of_frames = {1},video_path = '{2}',ffmpeg = {3}  WHERE video_id = '{4}'".format(video.videoname,video.numofframes,video.path,video.ffmpeg,video.videoid)
+    cursor = db.get_cursor_from_query(query)
+    try:
+        # Commit your changes in the database
+        cursor.commit()
+    except:
+        # Rollback in case there is any error
+        cursor.rollback()
+        # TODO log error
