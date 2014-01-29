@@ -12,7 +12,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/homagealgotester$homage.coverage" NAME="homage Coverage Results" MODIFIED="1390969043297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/homagealgotester$homage.coverage" NAME="homage Coverage Results" MODIFIED="1390984964066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -29,9 +29,9 @@
       <file leaf-file-name="homage.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/homage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="35" selection-start="86" selection-end="114" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+            <state line="7" column="11" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
               <folding>
-                <marker date="1390975731001" expanded="true" signature="25:77" placeholder="import ..." />
+                <element signature="e#25#57#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -40,25 +40,34 @@
       <file leaf-file-name="db.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/db.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="34" selection-start="608" selection-end="608" vertical-scroll-proportion="0.0" vertical-offset="137" max-vertical-offset="544">
+            <state line="4" column="15" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fileIO.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="general_param.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/general_param.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="0" selection-start="46" selection-end="431" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="425">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fileIO.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file/fileIO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.041769043" vertical-offset="0" max-vertical-offset="407">
+            <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="video.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="video.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/video.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="12" selection-start="53" selection-end="53" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+            <state line="21" column="40" selection-start="412" selection-end="412" vertical-scroll-proportion="0.5823096" vertical-offset="120" max-vertical-offset="578">
               <folding />
             </state>
           </provider>
@@ -74,16 +83,16 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/models/general_param.py" />
         <option value="$PROJECT_DIR$/models/auto_run_video_frame.py" />
         <option value="$PROJECT_DIR$/models/auto_run_video.py" />
         <option value="$PROJECT_DIR$/models/auto_run.py" />
         <option value="$PROJECT_DIR$/models/parameter.py" />
-        <option value="$PROJECT_DIR$/models/video.py" />
         <option value="$PROJECT_DIR$/data/dboperations.py" />
-        <option value="$PROJECT_DIR$/homage.py" />
-        <option value="$PROJECT_DIR$/data/db.py" />
         <option value="$PROJECT_DIR$/file/fileIO.py" />
+        <option value="$PROJECT_DIR$/data/db.py" />
+        <option value="$PROJECT_DIR$/homage.py" />
+        <option value="$PROJECT_DIR$/models/general_param.py" />
+        <option value="$PROJECT_DIR$/models/video.py" />
       </list>
     </option>
   </component>
@@ -389,7 +398,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="0" width="1378" height="780" extended-state="1" />
+    <frame x="-8" y="0" width="1378" height="780" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -422,7 +431,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="7" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -430,7 +439,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="16" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="391">
           <folding>
-            <marker date="1390975731001" expanded="true" signature="25:77" placeholder="import ..." />
+            <element signature="e#25#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -439,7 +448,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="16" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="391">
           <folding>
-            <marker date="1390975731001" expanded="true" signature="25:77" placeholder="import ..." />
+            <element signature="e#25#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -448,7 +457,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="119">
           <folding>
-            <marker date="1390975731001" expanded="true" signature="25:77" placeholder="import ..." />
+            <element signature="e#25#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -457,7 +466,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="119">
           <folding>
-            <marker date="1390975731001" expanded="true" signature="25:77" placeholder="import ..." />
+            <element signature="e#25#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -479,13 +488,6 @@
     <entry file="file://C:/Python27/Lib/site-packages/MySQLdb/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="79" column="0" selection-start="2329" selection-end="2329" vertical-scroll-proportion="0.33240998" vertical-offset="1189" max-vertical-offset="1734">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/general_param.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="8" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="153">
           <folding />
         </state>
       </provider>
@@ -518,32 +520,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/video.py">
+    <entry file="file://$PROJECT_DIR$/file/fileIO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="12" selection-start="53" selection-end="53" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+        <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="15" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/homage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="35" selection-start="86" selection-end="114" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+        <state line="7" column="11" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
           <folding>
-            <marker date="1390975731001" expanded="true" signature="25:77" placeholder="import ..." />
+            <element signature="e#25#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/db.py">
+    <entry file="file://$PROJECT_DIR$/models/general_param.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="34" selection-start="608" selection-end="608" vertical-scroll-proportion="0.0" vertical-offset="137" max-vertical-offset="544">
+        <state line="19" column="0" selection-start="46" selection-end="431" vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="425">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file/fileIO.py">
+    <entry file="file://$PROJECT_DIR$/models/video.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="25" selection-end="25" vertical-scroll-proportion="0.041769043" vertical-offset="0" max-vertical-offset="407">
+        <state line="21" column="40" selection-start="412" selection-end="412" vertical-scroll-proportion="0.5823096" vertical-offset="120" max-vertical-offset="578">
           <folding />
         </state>
       </provider>

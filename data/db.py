@@ -12,16 +12,40 @@ def get_connection():
                       db="homage") # name of the data base
     return connection
 
-def get_objects_from_query(query):
-
+def get_cursor_from_query(query):
     # you must create a Cursor object. It will let
     #  you execute all the query you need
-    if connection:
-        cur = connection.cursor()
-        # Use all the SQL you like
-        cur.execute(query)
-        # print all the first cell of all the rows
-        for row in cur.fetchall() :
-            print row[0]
-    else:
-        print "Must connect to db first. use db.get_connection().cursor()"
+    get_connection()
+    cur = connection.cursor()
+    # Use all the SQL you like
+    cur.execute(query)
+    return cur
+
+
+# class Database:
+#
+#     host = 'localhost'
+#     user = 'root'
+#     password = ''
+#     db = 'homage'
+#
+#     def __init__(self):
+#         self.connection = MySQLdb.connect(self.host, self.user, self.password, self.db)
+#         self.cursor = self.connection.cursor()
+#
+#     def insert(self, query):
+#         try:
+#             self.cursor.execute(query)
+#             self.connection.commit()
+#         except:
+#             self.connection.rollback()
+#
+#     def query(self, query):
+#         cursor = self.connection.cursor( MySQLdb.cursors.DictCursor )
+#         cursor.execute(query)
+#
+#         return cursor.fetchall()
+#
+#     def __del__(self):
+#         self.connection.close()
+
