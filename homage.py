@@ -1,9 +1,7 @@
 __author__ = 'danga_000'
-from models import general_param
-from data import db
 
-from models import general_param
-gps = general_param.get_general_params()
+from data.datamodels import general_param_db
+gps = general_param_db.get_general_params()
 g = gps[0]
 print g.val
 # database = db.Database()

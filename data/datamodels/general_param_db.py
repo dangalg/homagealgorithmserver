@@ -1,11 +1,7 @@
+from logic.models.general_param import General_Param
+
 __author__ = 'danga_000'
 from data import db
-
-class General_Param:
-    def __init__(self,pname,pval):
-        self.name = pname
-        self.val = pval
-
 
 def get_general_params():
     gps = []

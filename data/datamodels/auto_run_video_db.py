@@ -1,15 +1,9 @@
+from logic.models.auto_run_video import AutoRunVideo
+
 __author__ = 'danga_000'
 
 
 from data import db
-
-class AutoRunVideo:
-    def __init__(self,pcycleid,pvideoid,paveragescore,pexception):
-        self.cycleid = pcycleid
-        self.videoid = pvideoid
-        self.averagescore = paveragescore
-        self.exception = pexception
-
 
 def get_AutoRunVideo_by_cycleidvideoid(cycleid,videoid):
     query = "SELECT * FROM AutoRunVideo " \

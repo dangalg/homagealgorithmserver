@@ -1,15 +1,7 @@
 from data import db
+from logic.models.parameter import Parameter
 
 __author__ = 'danga_000'
-
-
-class Parameter:
-    def __init__(self,pname,pmin,pmax,pchange,pdefault):
-        self.name = pname
-        self.min = pmin
-        self.max = pmax
-        self.change = pchange
-        self.default = pdefault
 
 def get_param_by_name(name):
     query = "SELECT * FROM Parameters WHERE param_name = '{0}'".format(name)

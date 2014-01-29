@@ -1,12 +1,7 @@
+from logic.models.auto_run_video_frame import AutoRunVideoFrame
+
 __author__ = 'danga_000'
 from data import db
-
-class AutoRunVideoFrame:
-    def __init__(self,pcycleid,pvideoid,pframeid,score):
-        self.cycleid = pcycleid
-        self.videoid = pvideoid
-        self.frameid = pframeid
-        self.score = score
 
 
 def get_AutoRunVideoFrame_by_cycleidvideoidframeid(cycleid,videoid,frameid):
