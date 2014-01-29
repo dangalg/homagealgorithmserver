@@ -22,38 +22,13 @@ def get_cursor_from_query(query):
     cur.execute(query)
     return cur
 
-def insert(self, query):
+def dml(self, query):
+    cursor = get_cursor_from_query(query)
     try:
-        self.cursor.execute(query)
-        self.connection.commit()
+        # Commit your changes in the database
+        cursor.commit()
     except:
-
-        self.connection.rollback()
-
-# class Database:
-#
-#     host = 'localhost'
-#     user = 'root'
-#     password = ''
-#     db = 'homage'
-#
-#     def __init__(self):
-#         self.connection = MySQLdb.connect(self.host, self.user, self.password, self.db)
-#         self.cursor = self.connection.cursor()
-#
-#     def insert(self, query):
-#         try:
-#             self.cursor.execute(query)
-#             self.connection.commit()
-#         except:
-#             self.connection.rollback()
-#
-#     def query(self, query):
-#         cursor = self.connection.cursor( MySQLdb.cursors.DictCursor )
-#         cursor.execute(query)
-#
-#         return cursor.fetchall()
-#
-#     def __del__(self):
-#         self.connection.close()
+        # Rollback in case there is any error
+        cursor.rollback()
+        # TODO log error
 

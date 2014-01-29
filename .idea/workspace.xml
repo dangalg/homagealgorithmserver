@@ -40,7 +40,7 @@
       <file leaf-file-name="db.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/db.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="10" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105">
+            <state line="26" column="8" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="222" max-vertical-offset="680">
               <folding />
             </state>
           </provider>
@@ -49,7 +49,7 @@
       <file leaf-file-name="general_param.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/general_param.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="11" selection-start="816" selection-end="816" vertical-scroll-proportion="0.2899263" vertical-offset="358" max-vertical-offset="850">
+            <state line="24" column="17" selection-start="698" selection-end="698" vertical-scroll-proportion="0.62407863" vertical-offset="154" max-vertical-offset="612">
               <folding />
             </state>
           </provider>
@@ -67,7 +67,16 @@
       <file leaf-file-name="video.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/video.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="24" selection-start="2255" selection-end="2255" vertical-scroll-proportion="0.0" vertical-offset="881" max-vertical-offset="1275">
+            <state line="47" column="13" selection-start="1631" selection-end="1631" vertical-scroll-proportion="0.0" vertical-offset="596" max-vertical-offset="1003">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="parameter.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/parameter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="17" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="714">
               <folding />
             </state>
           </provider>
@@ -86,13 +95,13 @@
         <option value="$PROJECT_DIR$/models/auto_run_video_frame.py" />
         <option value="$PROJECT_DIR$/models/auto_run_video.py" />
         <option value="$PROJECT_DIR$/models/auto_run.py" />
-        <option value="$PROJECT_DIR$/models/parameter.py" />
         <option value="$PROJECT_DIR$/data/dboperations.py" />
         <option value="$PROJECT_DIR$/homage.py" />
-        <option value="$PROJECT_DIR$/data/db.py" />
         <option value="$PROJECT_DIR$/utils/log.py" />
         <option value="$PROJECT_DIR$/file/fileIO.py" />
+        <option value="$PROJECT_DIR$/data/db.py" />
         <option value="$PROJECT_DIR$/models/general_param.py" />
+        <option value="$PROJECT_DIR$/models/parameter.py" />
         <option value="$PROJECT_DIR$/models/video.py" />
       </list>
     </option>
@@ -523,13 +532,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/parameter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="8" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/homage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="11" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
@@ -546,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="10" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file/fileIO.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="7" selection-start="64" selection-end="64" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
@@ -560,16 +555,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="8" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="222" max-vertical-offset="680">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/parameter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="17" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/video.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="24" selection-start="2255" selection-end="2255" vertical-scroll-proportion="0.0" vertical-offset="881" max-vertical-offset="1275">
+        <state line="47" column="13" selection-start="1631" selection-end="1631" vertical-scroll-proportion="0.0" vertical-offset="596" max-vertical-offset="1003">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/general_param.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="11" selection-start="816" selection-end="816" vertical-scroll-proportion="0.2899263" vertical-offset="358" max-vertical-offset="850">
+        <state line="24" column="17" selection-start="698" selection-end="698" vertical-scroll-proportion="0.62407863" vertical-offset="154" max-vertical-offset="612">
           <folding />
         </state>
       </provider>

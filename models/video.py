@@ -1,13 +1,6 @@
 __author__ = 'danga_000'
 from data import db
 
-#
-# VideoID
-# VideoName
-# number of Frames
-# path
-# FFMPEG
-
 class Video:
     def __init__(self,id,name,pnumofframes,ppath,pffmpeg):
         self.videoid = id
@@ -47,23 +40,15 @@ def insert_video(video):
     query = """INSERT INTO Videos(video_id,
          video_name, num_of_frames, video_path, ffmpeg)
          VALUES ({0}, '{1}', {2}, '{3}', {4})""".format(video.videoid,video.videoname,video.numofframes,video.path,video.ffmpeg)
-    try:
-        cursor = db.get_cursor_from_query(query)
-        # Commit your changes in the database
-        db.get_connection().commit()
-    except:
-        # Rollback in case there is any error
-        db.get_connection().rollback()
-        # TODO log error
+    db.dml(query)
 
 def update_video_by_id(id,video):
     # Prepare SQL query to UPDATE required records
-    query = "UPDATE Videos SET video_name = '{0}', num_of_frames = {1},video_path = '{2}',ffmpeg = {3}  WHERE video_id = '{4}'".format(video.videoname,video.numofframes,video.path,video.ffmpeg,video.videoid)
-    cursor = db.get_cursor_from_query(query)
-    try:
-        # Commit your changes in the database
-        cursor.commit()
-    except:
-        # Rollback in case there is any error
-        cursor.rollback()
-        # TODO log error
+    query = "UPDATE Videos SET video_name = '{0}', num_of_frames = {1},video_path = '{2}',ffmpeg = {3}  " \
+            "WHERE video_id = {4}".format(video.videoname,video.numofframes,video.path,video.ffmpeg,id)
+    db.dml(query)
+
+def delete_video_by_id(id):
+    # Prepare SQL query to UPDATE required records
+    query = "DELETE FROM Videos WHERE video_id = {0}".format(id)
+    db.dml(query)
