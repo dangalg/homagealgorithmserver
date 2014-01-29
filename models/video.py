@@ -15,8 +15,8 @@ def get_videos_by_search(query):
     vids = []
     query = "SELECT * FROM Videos WHERE video_name LIKE '%{0}%'".format(query)
     cursor = db.get_cursor_from_query(query)
-    general_params = cursor.fetchall()
-    for row in general_params:
+    videos = cursor.fetchall()
+    for row in videos:
         vid = Video(row[0],row[1],row[2],row[3],row[4])
         vids.append(vid)
     return vids

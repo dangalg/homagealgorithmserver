@@ -46,15 +46,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="general_param.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/models/general_param.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="17" selection-start="698" selection-end="698" vertical-scroll-proportion="0.62407863" vertical-offset="154" max-vertical-offset="612">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="fileIO.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file/fileIO.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,19 +55,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="video.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/video.py">
+      <file leaf-file-name="auto_run_video_frame.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/auto_run_video_frame.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="13" selection-start="1631" selection-end="1631" vertical-scroll-proportion="0.0" vertical-offset="596" max-vertical-offset="1003">
+            <state line="11" column="53" selection-start="306" selection-end="306" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parameter.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/parameter.py">
+      <file leaf-file-name="auto_run_video.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/auto_run_video.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="17" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="714">
+            <state line="43" column="128" selection-start="1875" selection-end="1875" vertical-scroll-proportion="1.7960688" vertical-offset="0" max-vertical-offset="850">
               <folding />
             </state>
           </provider>
@@ -92,8 +83,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/models/auto_run_video_frame.py" />
-        <option value="$PROJECT_DIR$/models/auto_run_video.py" />
         <option value="$PROJECT_DIR$/models/auto_run.py" />
         <option value="$PROJECT_DIR$/data/dboperations.py" />
         <option value="$PROJECT_DIR$/homage.py" />
@@ -103,6 +92,8 @@
         <option value="$PROJECT_DIR$/models/general_param.py" />
         <option value="$PROJECT_DIR$/models/parameter.py" />
         <option value="$PROJECT_DIR$/models/video.py" />
+        <option value="$PROJECT_DIR$/models/auto_run_video_frame.py" />
+        <option value="$PROJECT_DIR$/models/auto_run_video.py" />
       </list>
     </option>
   </component>
@@ -422,7 +413,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="0" width="1378" height="780" extended-state="0" />
+    <frame x="-8" y="0" width="1378" height="780" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -511,20 +502,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/auto_run_video_frame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="8" selection-start="60" selection-end="60" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/auto_run_video.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="8" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/auto_run.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="8" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
@@ -562,23 +539,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/parameter.py">
+    <entry file="file://$PROJECT_DIR$/models/general_param.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="17" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="714">
+        <state line="24" column="17" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/video.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="13" selection-start="1631" selection-end="1631" vertical-scroll-proportion="0.0" vertical-offset="596" max-vertical-offset="1003">
+        <state line="18" column="21" selection-start="496" selection-end="496" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1003">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/general_param.py">
+    <entry file="file://$PROJECT_DIR$/models/parameter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="17" selection-start="698" selection-end="698" vertical-scroll-proportion="0.62407863" vertical-offset="154" max-vertical-offset="612">
+        <state line="36" column="17" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.7493858" vertical-offset="307" max-vertical-offset="714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/auto_run_video_frame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="53" selection-start="306" selection-end="306" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/auto_run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="128" selection-start="1875" selection-end="1875" vertical-scroll-proportion="1.7960688" vertical-offset="0" max-vertical-offset="850">
           <folding />
         </state>
       </provider>
