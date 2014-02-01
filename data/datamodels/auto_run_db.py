@@ -5,7 +5,7 @@ __author__ = 'danga_000'
 from data import db
 
 
-def get_AutoRun_by_cycleidvideoid(cycleid):
+def get_AutoRun_by_cycleid(cycleid):
     query = "SELECT * FROM AutoRun " \
             "WHERE cycle_id = {0}".format(cycleid)
     cursor = db.get_cursor_from_query(query)
