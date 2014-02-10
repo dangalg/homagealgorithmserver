@@ -1,7 +1,8 @@
 __author__ = 'danga_000'
 
-def run_algorith_on_frame(file,frame,testframe):
-    file.write(calculate(frame,testframe))
+def run_algorithem_on_frame(file,frame,testframe):
+    return file.write(calculate(frame,testframe))
 
 def calculate(frame,testframe):
-    return "algorithm stuffffffffffff"
+    score = 1 + 1
+    return score

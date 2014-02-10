@@ -5,6 +5,13 @@ __author__ = 'danga_000'
 from data import db
 
 
+def get_top_cycle_id():
+    query = "SELECT * FROM AutoRun ORDER BY cycle_id DESC LIMIT 1"
+    cursor = db.get_cursor_from_query(query)
+    row = cursor.fetchone()
+    autorun = AutoRun(row[0],row[1],row[2],row[3],row[4],row[5])
+    return autorun.cycleid
+
 def get_AutoRun_by_cycleid(cycleid):
     query = "SELECT * FROM AutoRun " \
             "WHERE cycle_id = {0}".format(cycleid)
