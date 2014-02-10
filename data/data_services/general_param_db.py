@@ -1,4 +1,4 @@
-from logic.models.general_param import General_Param
+from models.generalparam_model import General_Param
 
 __author__ = 'danga_000'
 from data import db

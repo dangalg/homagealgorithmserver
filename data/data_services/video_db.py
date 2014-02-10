@@ -1,7 +1,17 @@
-from logic.models.video import Video
+from models.video_model import Video
 
 __author__ = 'danga_000'
 from data import db
+
+def get_all_videos():
+    vids = []
+    query = "SELECT * FROM Videos"
+    cursor = db.get_cursor_from_query(query)
+    videos = cursor.fetchall()
+    for row in videos:
+        vid = Video(row[0],row[1],row[2],row[3],row[4])
+        vids.append(vid)
+    return vids
 
 def get_videos_by_search(query):
     vids = []

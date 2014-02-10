@@ -1,4 +1,4 @@
-from logic.models.auto_run_video_frame import AutoRunVideoFrame
+from models.autorunvideoframe_model import AutoRunVideoFrame
 
 __author__ = 'danga_000'
 from data import db

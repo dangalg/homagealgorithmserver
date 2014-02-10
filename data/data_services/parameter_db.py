@@ -1,5 +1,5 @@
 from data import db
-from logic.models.parameter import Parameter
+from models.parameter_model import Parameter
 
 __author__ = 'danga_000'
 

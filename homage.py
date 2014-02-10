@@ -1,9 +1,20 @@
+# import setuppyffmpeg
+
 __author__ = 'danga_000'
 
-from data.datamodels import general_param_db
-gps = general_param_db.get_general_params()
-g = gps[0]
-print g.val
+# setuppyffmpeg.setup()
+
+
+from logic.logic_services import general_param
+
+gps = general_param.get_general_params()
+for g in gps:
+    print g.name
+    print g.val
+
+
+
+
 # database = db.Database()
 #
 # #CleanUp Operation

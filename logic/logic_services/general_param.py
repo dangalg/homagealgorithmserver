@@ -1,12 +1,6 @@
-from data.datamodels import general_param_db
+from data.data_services import general_param_db
 
 __author__ = 'danga_000'
-
-
-class General_Param:
-    def __init__(self,pname,pval):
-        self.name = pname
-        self.val = pval
 
 
 def get_general_params():

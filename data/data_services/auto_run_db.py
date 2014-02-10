@@ -1,4 +1,4 @@
-from logic.models.auto_run import AutoRun
+from models.autorun_model import AutoRun
 
 __author__ = 'danga_000'
 
