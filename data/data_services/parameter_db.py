@@ -3,6 +3,16 @@ from models.parameter_model import Parameter
 
 __author__ = 'danga_000'
 
+def get_all_params():
+    parameters = []
+    query = "SELECT * FROM Parameters"
+    cursor = db.get_cursor_from_query(query)
+    params = cursor.fetchall()
+    for row in params:
+        param = Parameter(row[0],row[1],row[2],row[3],row[4])
+        parameters.append(param)
+    return parameters
+
 def get_param_by_name(name):
     query = "SELECT * FROM Parameters WHERE param_name = '{0}'".format(name)
     cursor = db.get_cursor_from_query(query)

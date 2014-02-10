@@ -8,9 +8,11 @@ __author__ = 'danga_000'
 from logic.logic_services import general_param
 
 gps = general_param.get_general_params()
-for g in gps:
-    print g.name
-    print g.val
+print gps['AlgorithmOutput']
+print gps
+# for g in gps:
+#     print g.name
+#     print g.val
 
 
 

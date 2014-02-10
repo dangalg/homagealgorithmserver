@@ -4,13 +4,13 @@ __author__ = 'danga_000'
 from data import db
 
 def get_general_params():
-    gps = []
+    gps = {}
     query = "SELECT * FROM GeneralParams"
     cursor = db.get_cursor_from_query(query)
     general_params = cursor.fetchall()
     for row in general_params:
         gp = General_Param(row[0],row[1])
-        gps.append(gp)
+        gps[gp.name] = gp.val
     return gps
 
 def insert_general_param(generalparam):
