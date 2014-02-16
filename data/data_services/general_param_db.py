@@ -1,4 +1,4 @@
-from models.generalparam_model import General_Param
+from models.generalparam import General_Param
 
 __author__ = 'danga_000'
 from data import db
@@ -20,7 +20,7 @@ def insert_general_param(generalparam):
          VALUES ('{0}', {1})""".format(generalparam.name,generalparam.val)
     db.dml(query)
 
-def update_general_param_val_by_name(val, name):
+def update_general_param_val_by_name(name, val):
     # Prepare SQL query to UPDATE required records
     query = "UPDATE GeneralParams SET param_val = {0} WHERE param_name = '{1}'".format(val,name)
     db.dml(query)

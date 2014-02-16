@@ -1,4 +1,4 @@
-from models.autorunvideo_model import AutoRunVideo
+from models.autorunvideo import AutoRunVideo
 
 __author__ = 'danga_000'
 

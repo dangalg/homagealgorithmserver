@@ -12,7 +12,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/homagealgotester$homage.coverage" NAME="homage Coverage Results" MODIFIED="1392039387628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/homagealgotester$homage.coverage" NAME="homage Coverage Results" MODIFIED="1392525166878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -26,68 +26,66 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="video.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/logic_services/video.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="47" selection-start="265" selection-end="283" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2176">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="cycle.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runcycle/cycle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="34" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+            <state line="69" column="68" selection-start="2548" selection-end="2548" vertical-scroll-proportion="0.0" vertical-offset="895" max-vertical-offset="1496">
               <folding>
-                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auto_run.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="40" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="auto_run_db.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/data_services/auto_run_db.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="26" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="compare.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="compare.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorithm/compare.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="37" selection-start="675" selection-end="675" vertical-scroll-proportion="-0.17989418" vertical-offset="408" max-vertical-offset="1173">
+            <state line="59" column="31" selection-start="2470" selection-end="2470" vertical-scroll-proportion="0.0" vertical-offset="623" max-vertical-offset="1224">
               <folding>
-                <element signature="e#0#58#0" expanded="true" />
+                <element signature="e#0#64#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auto_run_video_frame.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run_video_frame.py">
+      <file leaf-file-name="algorithm.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/algorithm/algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="28" selection-start="273" selection-end="297" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+            <state line="5" column="36" selection-start="178" selection-end="178" vertical-scroll-proportion="0.21518987" vertical-offset="0" max-vertical-offset="395">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="algorithm.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algorithm/algorithm.py">
+      <file leaf-file-name="parameter_logic.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logic/logic_services/parameter_logic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="11" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+            <state line="16" column="31" selection-start="385" selection-end="412" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="parameter_db.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/data_services/parameter_db.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="748">
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <marker date="1392524375340" expanded="true" signature="141:165" placeholder="SELECT * FRO..Parameters..." />
+                <marker date="1392524375340" expanded="true" signature="426:475" placeholder="SELECT * FRO..Parameters..." />
+                <marker date="1392524375340" expanded="true" signature="753:891" placeholder="INSERT INTO ..." />
+                <marker date="1392524375340" expanded="true" signature="1106:1242" placeholder="UPDATE Param..." />
+                <marker date="1392524375340" expanded="true" signature="1435:1481" placeholder="DELETE FROM ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="homage.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/homage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="9" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="901">
               <folding />
             </state>
           </provider>
@@ -112,13 +110,16 @@
         <option value="$PROJECT_DIR$/logic/logic_services/video.py" />
         <option value="$PROJECT_DIR$/logic/logic_services/parameter.py" />
         <option value="$PROJECT_DIR$/data/data_services/parameter_db.py" />
-        <option value="$PROJECT_DIR$/data/data_services/general_param_db.py" />
-        <option value="$PROJECT_DIR$/homage.py" />
-        <option value="$PROJECT_DIR$/algorithm/algorithm.py" />
         <option value="$PROJECT_DIR$/logic/logic_services/auto_run.py" />
         <option value="$PROJECT_DIR$/data/data_services/auto_run_db.py" />
+        <option value="$PROJECT_DIR$/homage.py" />
+        <option value="$PROJECT_DIR$/file/ffmpeg.py" />
+        <option value="$PROJECT_DIR$/logic/logic_services/general_param_logic.py" />
+        <option value="$PROJECT_DIR$/data/data_services/general_param_db.py" />
+        <option value="$PROJECT_DIR$/logic/logic_services/parameter_logic.py" />
         <option value="$PROJECT_DIR$/runcycle/cycle.py" />
         <option value="$PROJECT_DIR$/algorithm/compare.py" />
+        <option value="$PROJECT_DIR$/algorithm/algorithm.py" />
       </list>
     </option>
   </component>
@@ -154,7 +155,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -173,36 +173,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homagealgotester" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homagealgorithmserver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homagealgotester" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homagealgorithmserver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="runcycle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -419,28 +392,33 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1364" height="736" extended-state="0" />
-    <editor active="true" />
+    <frame x="1" y="1" width="1364" height="736" extended-state="1" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25222552" sideWeight="0.67221296" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25222552" sideWeight="0.67221296" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933443" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.327787" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32695374" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -456,119 +434,191 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/file/ffmpeg.py">
+    <entry file="file://$PROJECT_DIR$/runcycle/cycle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="31" selection-start="382" selection-end="382" vertical-scroll-proportion="0.49470899" vertical-offset="0" max-vertical-offset="378">
-          <folding />
+        <state line="37" column="6" selection-start="1467" selection-end="1467" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1258">
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/log.py">
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/parameter_logic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="18" selection-start="98" selection-end="164" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+        <state line="13" column="40" selection-start="288" selection-end="324" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="391">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/homage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="9" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+        <state line="11" column="9" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/logic_services/general_param.py">
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/video_logic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
+        <state line="12" column="47" selection-start="265" selection-end="283" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="2210" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runcycle/cycle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="34" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="493">
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file/fileIO.py">
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run_logic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logic/logic_services/video.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="47" selection-start="265" selection-end="283" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2176">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run_video_frame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="28" selection-start="273" selection-end="297" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/autorunvideoframe_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="26" selection-start="116" selection-end="230" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="40" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-          <folding />
-        </state>
+        <state line="5" column="40" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="340" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/data_services/auto_run_db.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="26" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
-          <folding />
+        <state line="12" column="26" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="748" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/compare.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="37" selection-start="675" selection-end="675" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1173">
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_services/video_db.py">
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run_video_frame_logic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="65" selection-start="463" selection-end="464" vertical-scroll-proportion="0.8095238" vertical-offset="0" max-vertical-offset="1037">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/video_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/autorun_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
+        <state line="9" column="28" selection-start="273" selection-end="297" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="374" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorithm/algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="11" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+        <state line="3" column="11" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="221">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/log.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="18" selection-start="98" selection-end="164" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/fileIO.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run_video_frame_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="28" selection-start="273" selection-end="297" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/autorunvideoframe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="26" selection-start="116" selection-end="230" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/data_services/auto_run_db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="26" selection-start="339" selection-end="339" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="748" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/data_services/video_db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="65" selection-start="463" selection-end="464" vertical-scroll-proportion="0.8095238" vertical-offset="0" max-vertical-offset="1037" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/autorun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="33" selection-start="328" selection-end="328" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/auto_run_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="40" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/video_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="47" selection-start="1639" selection-end="2128" vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="2176" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file/ffmpeg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="28" selection-start="50" selection-end="74" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/data_services/general_param_db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="46" selection-start="692" selection-end="692" vertical-scroll-proportion="0.5707071" vertical-offset="148" max-vertical-offset="544" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/general_param_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="47" selection-start="253" selection-end="296" vertical-scroll-proportion="0.4722222" vertical-offset="0" max-vertical-offset="396" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="9" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/data_services/parameter_db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1392524375340" expanded="true" signature="141:165" placeholder="SELECT * FRO..Parameters..." />
+            <marker date="1392524375340" expanded="true" signature="426:475" placeholder="SELECT * FRO..Parameters..." />
+            <marker date="1392524375340" expanded="true" signature="753:891" placeholder="INSERT INTO ..." />
+            <marker date="1392524375340" expanded="true" signature="1106:1242" placeholder="UPDATE Param..." />
+            <marker date="1392524375340" expanded="true" signature="1435:1481" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/logic_services/parameter_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="31" selection-start="385" selection-end="412" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/runcycle/cycle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="34" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+        <state line="69" column="68" selection-start="2548" selection-end="2548" vertical-scroll-proportion="0.0" vertical-offset="895" max-vertical-offset="1496">
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorithm/compare.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="37" selection-start="675" selection-end="675" vertical-scroll-proportion="-0.17989418" vertical-offset="408" max-vertical-offset="1173">
+        <state line="59" column="31" selection-start="2470" selection-end="2470" vertical-scroll-proportion="0.0" vertical-offset="623" max-vertical-offset="1224">
           <folding>
-            <element signature="e#0#58#0" expanded="true" />
+            <element signature="e#0#64#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="36" selection-start="178" selection-end="178" vertical-scroll-proportion="0.21518987" vertical-offset="0" max-vertical-offset="395">
+          <folding />
         </state>
       </provider>
     </entry>

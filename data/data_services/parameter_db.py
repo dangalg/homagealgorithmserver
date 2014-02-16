@@ -1,5 +1,5 @@
 from data import db
-from models.parameter_model import Parameter
+from models.parameter import Parameter
 
 __author__ = 'danga_000'
 

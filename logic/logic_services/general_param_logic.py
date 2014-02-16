@@ -9,5 +9,5 @@ def get_general_params():
 def insert_general_param(generalparam):
     general_param_db.insert_general_param(generalparam)
 
-def update_general_param_val_by_name(val, name):
-    general_param_db.update_general_param_val_by_name(val,name)
+def update_general_param_val_by_name(name, val):
+    general_param_db.update_general_param_val_by_name(name,val)

@@ -1,4 +1,4 @@
-from models.autorun_model import AutoRun
+from models.autorun import AutoRun
 
 __author__ = 'danga_000'
 

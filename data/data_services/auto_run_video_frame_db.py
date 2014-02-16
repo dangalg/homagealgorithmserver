@@ -1,4 +1,4 @@
-from models.autorunvideoframe_model import AutoRunVideoFrame
+from models.autorunvideoframe import AutoRunVideoFrame
 
 __author__ = 'danga_000'
 from data import db

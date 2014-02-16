@@ -1,4 +1,4 @@
-from models.video_model import Video
+from models.video import Video
 
 __author__ = 'danga_000'
 from data import db

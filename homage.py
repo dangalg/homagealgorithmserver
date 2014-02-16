@@ -5,10 +5,10 @@ __author__ = 'danga_000'
 # setuppyffmpeg.setup()
 
 
-from logic.logic_services import general_param
+from logic.logic_services import general_param_logic
 
-gps = general_param.get_general_params()
-print gps['AlgorithmOutput']
+gps = general_param_logic.get_general_params()
+#print gps['AlgorithmOutput']
 print gps
 # for g in gps:
 #     print g.name
