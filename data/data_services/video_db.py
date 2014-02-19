@@ -1,7 +1,15 @@
+from data import db
 from models.video import Video
 
 __author__ = 'danga_000'
-from data import db
+
+def get_top_video_id():
+    query = "SELECT * FROM Videos ORDER BY video_id DESC LIMIT 1"
+    cursor = db.get_cursor_from_query(query)
+    row = cursor.fetchone()
+    if row:
+        video = Video(row[0],row[1],row[2],row[3],row[4])
+        return video.videoid
 
 def get_all_videos():
     vids = []
@@ -27,15 +35,17 @@ def get_video_by_id(id):
     query = "SELECT * FROM Videos WHERE video_id = '{0}'".format(id)
     cursor = db.get_cursor_from_query(query)
     row = cursor.fetchone()
-    vid = Video(row[0],row[1],row[2],row[3],row[4])
-    return vid
+    if row:
+        vid = Video(row[0],row[1],row[2],row[3],row[4])
+        return vid
 
 def get_video_by_name(name):
     query = "SELECT * FROM Videos WHERE video_name = '{0}'".format(name)
     cursor = db.get_cursor_from_query(query)
     row = cursor.fetchone()
-    vid = Video(row[0],row[1],row[2],row[3],row[4])
-    return vid
+    if row:
+        vid = Video(row[0],row[1],row[2],row[3],row[4])
+        return vid
 
 def insert_video(video):
     # Prepare SQL query to INSERT a record into the database.

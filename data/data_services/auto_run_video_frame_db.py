@@ -9,8 +9,9 @@ def get_AutoRunVideoFrame_by_cycleidvideoidframeid(cycleid,videoid,frameid):
             "WHERE cycle_id = {0} AND video_id = {1} AND frame_id = {2}".format(cycleid,videoid,frameid)
     cursor = db.get_cursor_from_query(query)
     row = cursor.fetchone()
-    autorunvideoframe = AutoRunVideoFrame(row[0],row[1],row[2],row[3])
-    return autorunvideoframe
+    if row:
+        autorunvideoframe = AutoRunVideoFrame(row[0],row[1],row[2],row[3])
+        return autorunvideoframe
 
 
 def insert_autorunvideoframe(autorunvideoframe):
@@ -25,7 +26,7 @@ def insert_autorunvideoframe(autorunvideoframe):
 
 def update_score(autorunvideoframe,score):
     # Prepare SQL query to UPDATE required records
-    query = "UPDATE AutoRunVideoFrame SET score = {0} WHERE video_id = {4}".format(score,
+    query = "UPDATE AutoRunVideoFrame SET score = {0}  WHERE cycle_id = {1} AND video_id = {2} AND frame_id = {3}".format(score,
                                                                                    autorunvideoframe.cycleid,
                                                                                    autorunvideoframe.videoid,
                                                                                    autorunvideoframe.frameid)

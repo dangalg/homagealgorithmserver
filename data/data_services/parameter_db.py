@@ -17,8 +17,9 @@ def get_param_by_name(name):
     query = "SELECT * FROM Parameters WHERE param_name = '{0}'".format(name)
     cursor = db.get_cursor_from_query(query)
     row = cursor.fetchone()
-    parameter = Parameter(row[0],row[1],row[2],row[3],row[4])
-    return parameter
+    if row:
+        parameter = Parameter(row[0],row[1],row[2],row[3],row[4])
+        return parameter
 
 def insert_param(parameter):
     # Prepare SQL query to INSERT a record into the database.

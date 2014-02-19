@@ -4,8 +4,6 @@ __author__ = 'danga_000'
 
 
 def ffmpeg_on_path(filename):
-    # Open File
-
     # ffmpeg on computer
     framename = filename.split('.')[0]
     ffmpeg_command = "ffmpeg -i {0} -q:v 1 {1}-%4d.jpg".format(filename,framename)

@@ -5,4 +5,4 @@ class AutoRunVideo:
         self.cycleid = pcycleid
         self.videoid = pvideoid
         self.averagescore = paveragescore
-        self.exception = pexception
+        self.avexception = pexception

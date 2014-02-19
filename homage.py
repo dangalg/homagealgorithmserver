@@ -1,4 +1,6 @@
 # import setuppyffmpeg
+import os
+from runcycle.cycle import run_cycle
 
 __author__ = 'danga_000'
 
@@ -8,41 +10,13 @@ __author__ = 'danga_000'
 from logic.logic_services import general_param_logic
 
 gps = general_param_logic.get_general_params()
-#print gps['AlgorithmOutput']
-print gps
-# for g in gps:
-#     print g.name
-#     print g.val
+# # print gps['AlgorithmOutput']
+#print gps
 
 
+run_cycle()
+
+# os.path.abspath('mydir/myfile.txt')
+# print os.path.abspath(gps['AlgorithmOutput'] + "/" + gps['AlgorithmVersion'])
 
 
-# database = db.Database()
-#
-# #CleanUp Operation
-# del_query = "DELETE FROM basic_python_database"
-# db.insert(del_query)
-#
-# # Data Insert into the table
-# query = """
-#     INSERT INTO basic_python_database
-#     (`name`, `age`)
-#     VALUES
-#     ('Mike', 21),
-#     ('Michael', 21),
-#     ('Imran', 21)
-#     """
-#
-# # db.query(query)
-# db.insert(query)
-#
-# # Data retrieved from the table
-# select_query = """
-#     SELECT * FROM basic_python_database
-#     WHERE age = 21
-#     """
-#
-# people = db.query(select_query)
-#
-# for person in people:
-#     print "Found %s " % person['name']
