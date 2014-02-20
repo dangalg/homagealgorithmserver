@@ -86,21 +86,29 @@ def save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospa
 
 
 def run_video_cycle(algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath):
+    videocount = numofvideos
     for video in videos:
         # run ffmpeg on video and run_compare
         try:
             # if video.ffmpeg == 0: #TODO make ffmpeg work if needed
             #     ffmpeg_on_video(video)
             autovideo = run_algorithm_then_compare(cycleid, video, params)
-            score = score + autovideo.averagescore
+            if autovideo.averagescore != 0:
+                score = score + autovideo.averagescore
+            else:
+                videocount -= 1
         except IOError:
             log.log_errors("cannot get id: " + str(video.videoid) + "name: " +
                            video.videoname + "num of frames: " +
                            str(video.numofframes) + "path: " +
                            video.path + "ffmpeg: " +
                            str(video.ffmpeg))
+            videocount -= 1
     # Save average score
-    avgscore = score / numofvideos
+    if videocount != 0:
+        avgscore = score / videocount
+    else:
+        avgscore = 0
     # create auto_run with params
     ar = AutoRun(cycleid, algoversion, params, startdate, datetime.datetime.now(), avgscore)
     # Save autorun info

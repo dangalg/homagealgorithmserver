@@ -24,30 +24,44 @@ def run_algorithm_then_compare(cycleid, video, params):
         algofiles = run_algorithm(cycleid,video,frames)
         # get gt frames
         gtfiles = get_all_gt_files_from_video(video)
-        # run compare on every frame and save in auto_run_video_frame
-        avgscore = run_compare_on_frames(cycleid, video, algofiles, gtfiles, params)
-        # save average in auto_run_video
-        autovideo.averagescore = avgscore
-        autovideo.avexception = "good"
+
+        if len(algofiles) == len(gtfiles):
+            # run compare on every frame and save in auto_run_video_frame
+            avgscore = run_compare_on_frames(cycleid, video, algofiles, gtfiles, params)
+            # save average in auto_run_video
+            autovideo.averagescore = avgscore
+            autovideo.avexception = "good"
+        else:
+            # If not same frame count return exception
+            autovideo.averagescore = 0
+            autovideo.avexception = "Not same number of algorithm files and GT files"
     except IOError:
         autovideo.averagescore = 0
         autovideo.avexception = "Failed to test Video: " + str(video.videoid) + " from cycle: " + str(cycleid)
         log.log_errors("Failed to test Video: " + str(video.videoid) + " from cycle: " + str(cycleid))
     # return auto_run
-    if autovideo.avexception == "good":
-        insert_update_autorunvideo(autovideo)
-        return autovideo
+    insert_update_autorunvideo(autovideo)
+    return autovideo
 
 
 def run_compare_on_frames(cycleid, video, algofiles, gtfiles, params):
     score = 0
-    for i in range(0,video.numofframes - 1):
+    framecount = video.numofframes
+    for i in range(0,video.numofframes):
         try:
-            score = score + run_compare_frame_to_testframe(cycleid,video,algofiles[i],gtfiles[i],i,params)
+            framescore = run_compare_frame_to_testframe(cycleid,video,algofiles[i],gtfiles[i],i,params)
+            if framescore != 0:
+                score = score + run_compare_frame_to_testframe(cycleid,video,algofiles[i],gtfiles[i],i,params)
+            else:
+                framecount -= 1
         except IOError:
             log.log_errors("Failed to test frame: " + str(i) +" For Video: " + str(video.videoname) + " from cycle: " + str(cycleid))
+            framecount -= 1
     if video.numofframes != 0:
-        avgscore = score / video.numofframes
+        if framecount != 0:
+            avgscore = score / framecount
+        else:
+            avgscore = 0
         return avgscore
 
 
