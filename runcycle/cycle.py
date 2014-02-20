@@ -122,10 +122,8 @@ def run_cycle(optimize,algoversion,algooutputfolder,videofolder,params):
     set_user_info(optimize,algoversion,algooutputfolder,videofolder,params)
     # Get general_params
     algooutput, algoversion, algorunoptimization, videospath = get_general_params()
-    # get videos automatically from their folder
-    insert_update_videos_from_path(videospath)
-    # get videos
-    videos = get_all_videos()
+    # get existing videos automatically from their folder and insert to database if needed
+    videos = insert_update_videos_from_path(videospath)
     numofvideos = len(videos)
     paramlists = get_params_list(algorunoptimization)
     if algorunoptimization:

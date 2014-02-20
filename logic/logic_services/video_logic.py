@@ -92,6 +92,7 @@ def insert_update_videos_from_path(path):
     videos = list_videos_by_path(path)
     newid = get_new_video_id()
     vid = None
+    videosinfolder = []
     for v in videos:
         try:
             updvid = get_video_by_name(v)
@@ -106,8 +107,10 @@ def insert_update_videos_from_path(path):
                 newid += 1
             else:
                 video_db.update_video_by_id(updvid.videoid,vid)
+            videosinfolder.append(vid)
         except IOError:
             log_video_error("insert_update_videos_from_path error in video named {0}: ".format(v), vid)
+    return videosinfolder
 
 def insert_update_video(video):
     newid = get_new_video_id()
