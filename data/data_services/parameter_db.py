@@ -36,5 +36,6 @@ def update_param_by_name(name,parameter):
 
 def delete_param_by_name(name):
     # Prepare SQL query to UPDATE required records
-    query = "DELETE FROM Parameter WHERE param_name = '{0}'".format(name)
+    query = "DELETE FROM Parameters WHERE param_name = '{0}'".format(name)
     db.dml(query)
+

@@ -9,6 +9,10 @@ def get_new_cycle_id():
         cycleid = topcycleid + 1
     return cycleid
 
+def get_last_algorithm_version():
+    lastalgorithmversion = auto_run_db.get_last_algorithm_version()
+    return lastalgorithmversion
+
 def get_autorun_by_cycleid_algorithem_params(autorun):
     return auto_run_db.get_autorun_by_cycleid_algorithem_params(autorun)
 
