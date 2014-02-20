@@ -28,17 +28,23 @@ def get_new_video_id():
 
 def get_all_frames_from_video(video):
     frames = []
-    for i in range(1,video.numofframes + 1):
-        frame = get_frame_path(video) + "/" + video.videoname.split('.')[0] + "-" + '{0:04}'.format(i) + ".jpg"
-        frames.append(frame)
+    path = get_frame_path(video)
+    if os.path.exists(path):
+        for i in range(1,video.numofframes + 1):
+            frame = get_frame_path(video) + "/" + video.videoname.split('.')[0] + "-" + '{0:04}'.format(i) + ".jpg"
+            if os.path.exists(frame):
+                frames.append(frame)
     return frames
 
 def get_all_gt_files_from_video(video):
     testframes = []
-    testpath = get_frame_path(video) + "_GT" + "/" + video.videoname.split('.')[0] + "-"
-    for i in range(1,video.numofframes + 1):
-        frame = testpath + '{0:04}'.format(i) + ".txt"
-        testframes.append(frame)
+    GTpath = get_frame_path(video) + "_GT"
+    if os.path.exists(GTpath):
+        testpath = get_frame_path(video) + "_GT" + "/" + video.videoname.split('.')[0] + "-"
+        for i in range(1,video.numofframes + 1):
+            frame = testpath + '{0:04}'.format(i) + ".txt"
+            if os.path.exists(frame):
+                testframes.append(frame)
     return testframes
 
 def escape_backslash(name):
@@ -86,7 +92,7 @@ def get_framnum_from_path(video):
     return len(frames)
 
 def get_frame_path(video):
-    return video.path + "/" + video.videoname.split('.')[0]
+    return video.path + video.videoname.split('.')[0]
 
 def insert_update_videos_from_path(path):
     videos = list_videos_by_path(path)

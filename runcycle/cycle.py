@@ -47,10 +47,10 @@ def get_params_list(optimize):
 
 def set_user_info(optimize,algoversion,algooutputfolder,videofolder,params):
     #set Algorithm output and version
-    gpalgooutput = GeneralParam('AlgorithmOutput', str(algooutputfolder))  # TODO get from user"AlgoOutput"
-    gpalgoversion = GeneralParam('AlgorithmVersion', str(algoversion))  # TODO get from user
-    algorunoptimization = GeneralParam('RunOptimization', str(optimize))  # TODO get from user
-    videofolder = GeneralParam('VideoFolder', str(videofolder))  # TODO get from user"C:/testhomage/"
+    gpalgooutput = GeneralParam('AlgorithmOutput', str(algooutputfolder))
+    gpalgoversion = GeneralParam('AlgorithmVersion', str(algoversion))
+    algorunoptimization = GeneralParam('RunOptimization', str(optimize))
+    videofolder = GeneralParam('VideoFolder', str(videofolder))
     insert_update_general_param(gpalgooutput)
     insert_update_general_param(gpalgoversion)
     insert_update_general_param(algorunoptimization)
@@ -136,4 +136,4 @@ def run_cycle(optimize,algoversion,algooutputfolder,videofolder,params):
         # run cycle on all videos:
         score = 0
         run_video_cycle(algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath)
-        cycleid += 1 # TODO decide if to make new cycle every time or add params to video and frames
+        cycleid += 1
