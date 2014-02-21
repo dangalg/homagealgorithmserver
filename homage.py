@@ -29,6 +29,7 @@ class Application(tk.Frame):
         tk.Frame.__init__(self, master)
         self.lblstatus = Label(self, text="Ready")
         self.lbparams = tk.Listbox(self)
+        self.lbreport = tk.Listbox(self)
         self.lbparams.bind("<Double-Button-1>", self.OnDouble)
         self.params = get_all_params()
         self.get_params_into_listbox()
@@ -65,16 +66,20 @@ class Application(tk.Frame):
         self.runcyclebutton["command"] = self.runcyclethread
         self.runcyclebutton.grid(row=5,column=0)
 
-        # Parameter List
-        self.lbparams.grid(row=6,column=0)
-
         # Status Label
-        self.lblstatus.grid(row=6, column=1)
+        self.lblstatus.grid(row=6, column=0)
+
+        # Parameter List
+        self.lbparams.grid(row=7,column=0)
+
+        # Report List
+        self.lbreport.grid(row=7,column=1)
 
     def runcyclethread(self):
          # Set up the thread to do asynchronous I/O
         # More can be made if necessary
         self.lblstatus['text'] = "Running..."
+        self.lbreport.insert(1, "Starting Run Cycle")
         self.thread.running = 1
         self.thread.thread1 = threading.Thread(target=self.runcycle)
         self.thread.thread1.start()
@@ -84,7 +89,7 @@ class Application(tk.Frame):
         self.thread.periodicCall()
 
     def runcycle(self):
-        run_cycle(str(self.optimize.get()),
+        run_cycle(self,str(self.optimize.get()),
                   str(self.algoversion.get()),
                   str(self.algooutputfolder.get()),
                   str(self.videofolder.get()),
@@ -152,25 +157,6 @@ class Application(tk.Frame):
             except queue.Empty:
                 pass
 
-# class GuiPart:
-#     def __init__(self, master, queue, endCommand):
-#         self.queue = queue
-#         # Set up the GUI
-#         initiate_gui_params(self, master, tk)
-#         # Add more GUI stuff here
-#
-#     def processIncoming(self):
-#         """
-#         Handle all the messages currently in the queue (if any).
-#         """
-#         while self.queue.qsize():
-#             try:
-#                 msg = self.queue.get(0)
-#                 # Check contents of message and do what it says
-#                 # As a test, we simply print it
-#                 print(msg)
-#             except queue.Empty:
-#                 pass
 
 class ThreadedClient:
     """

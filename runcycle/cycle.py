@@ -85,9 +85,13 @@ def save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospa
     file.write(str(avgscore))
 
 
-def run_video_cycle(algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath):
+def run_video_cycle(app, algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath):
     videocount = numofvideos
+    i=2
     for video in videos:
+        i = i+1
+        app.lblstatus['text'] = "Testing " + video.videoname
+        app.lbreport.insert(2, "Testing " + video.videoname)
         # run ffmpeg on video and run_compare
         try:
             # if video.ffmpeg == 0: #TODO make ffmpeg work if needed
@@ -95,6 +99,7 @@ def run_video_cycle(algooutput, algoversion, cycleid, numofvideos, params, score
             autovideo = run_algorithm_then_compare(cycleid, video, params)
             if autovideo.averagescore != 0:
                 score = score + autovideo.averagescore
+                app.lbreport.insert(i,"Score: " + str(score))
             else:
                 videocount -= 1
         except IOError:
@@ -104,19 +109,23 @@ def run_video_cycle(algooutput, algoversion, cycleid, numofvideos, params, score
                            video.path + "ffmpeg: " +
                            str(video.ffmpeg))
             videocount -= 1
+            app.lbreport.insert(video.videoname,"Error in video: " + video.videoname)
     # Save average score
     if videocount != 0:
         avgscore = score / videocount
     else:
         avgscore = 0
     # create auto_run with params
+    app.lbreport.insert(cycleid,"Cycle " + str(cycleid) + " Score: " + str(avgscore))
     ar = AutoRun(cycleid, algoversion, params, startdate, datetime.datetime.now(), avgscore)
     # Save autorun info
     auto_run_logic.insert_update_autorun(ar)
     save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospath)
 
 
-def run_cycle(optimize,algoversion,algooutputfolder,videofolder,params):
+def run_cycle(app, optimize,algoversion,algooutputfolder,videofolder,params):
+    app.lblstatus['text'] = "Setting params..."
+    app.lbreport.insert(2,"Setting params...")
     # get new cycle_id
     cycleid = auto_run_logic.get_new_cycle_id()
     set_user_info(optimize,algoversion,algooutputfolder,videofolder,params)
@@ -135,5 +144,5 @@ def run_cycle(optimize,algoversion,algooutputfolder,videofolder,params):
         startdate= datetime.datetime.now()
         # run cycle on all videos:
         score = 0
-        run_video_cycle(algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath)
+        run_video_cycle(app, algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath)
         cycleid += 1
