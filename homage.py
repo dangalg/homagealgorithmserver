@@ -1,23 +1,21 @@
 import time
+import threading
+import random
+import queue
+import tkinter as tk
 from logic.logic_services.parameter_logic import get_all_params
 from models.parameter import Parameter
 from runcycle.cycle import run_cycle, get_general_params
 
 from tkinter import *
-__author__ = 'danga_000'
 
-import tkinter as tk
 
 class Application(tk.Frame):
-    def get_params_into_listbox(self):
-        for i in range(0, len(self.params)):
-            self.lbparams.insert(str(i), str(self.params[i].name)
-                                         + "," + str(self.params[i].min)
-                                         + "," + str(self.params[i].max)
-                                         + "," + str(self.params[i].change)
-                                         + "," + str(self.params[i].default))
 
-    def __init__(self, master=None):
+    def __init__(self, thread,  master, queue, endCommand):
+        self.thread = thread
+        self.queue = queue
+        self.endcommand = endCommand
         algooutput, algoversion, algorunoptimization, videospath = get_general_params()
         self.optimize = IntVar()
         self.optimize.set(algorunoptimization)
@@ -64,7 +62,7 @@ class Application(tk.Frame):
         # Run Cycle Button
         self.runcyclebutton = tk.Button(self)
         self.runcyclebutton["text"] = "Run Cycle"
-        self.runcyclebutton["command"] = self.runcycle
+        self.runcyclebutton["command"] = self.runcyclethread
         self.runcyclebutton.grid(row=5,column=0)
 
         # Parameter List
@@ -73,14 +71,35 @@ class Application(tk.Frame):
         # Status Label
         self.lblstatus.grid(row=6, column=1)
 
+    def runcyclethread(self):
+         # Set up the thread to do asynchronous I/O
+        # More can be made if necessary
+        self.lblstatus['text'] = "Running..."
+        self.thread.running = 1
+        self.thread.thread1 = threading.Thread(target=self.runcycle)
+        self.thread.thread1.start()
+
+        # Start the periodic call in the GUI to check if the queue contains
+        # anything
+        self.thread.periodicCall()
+
     def runcycle(self):
         run_cycle(str(self.optimize.get()),
                   str(self.algoversion.get()),
                   str(self.algooutputfolder.get()),
                   str(self.videofolder.get()),
                   self.params)
-        self.lblstatus['text'] = "Finished Test"
+        self.lblstatus['text'] = "Ready"
+
         print("Finished running test!")
+
+    def get_params_into_listbox(self):
+        for i in range(0, len(self.params)):
+            self.lbparams.insert(str(i), str(self.params[i].name)
+                                         + "," + str(self.params[i].min)
+                                         + "," + str(self.params[i].max)
+                                         + "," + str(self.params[i].change)
+                                         + "," + str(self.params[i].default))
 
     def refresh_param_listbox(self):
         self.lbparams.delete(0, 10)
@@ -120,5 +139,91 @@ class Application(tk.Frame):
         value = widget.get(selection[0])
         self.addparam.set(value)
 
-app = Application(master=tk.Tk())
+    def processIncoming(self):
+        """
+        Handle all the messages currently in the queue (if any).
+        """
+        while self.queue.qsize():
+            try:
+                msg = self.queue.get(0)
+                # Check contents of message and do what it says
+                # As a test, we simply print it
+                print(msg)
+            except queue.Empty:
+                pass
+
+# class GuiPart:
+#     def __init__(self, master, queue, endCommand):
+#         self.queue = queue
+#         # Set up the GUI
+#         initiate_gui_params(self, master, tk)
+#         # Add more GUI stuff here
+#
+#     def processIncoming(self):
+#         """
+#         Handle all the messages currently in the queue (if any).
+#         """
+#         while self.queue.qsize():
+#             try:
+#                 msg = self.queue.get(0)
+#                 # Check contents of message and do what it says
+#                 # As a test, we simply print it
+#                 print(msg)
+#             except queue.Empty:
+#                 pass
+
+class ThreadedClient:
+    """
+    Launch the main part of the GUI and the worker thread. periodicCall and
+    endApplication could reside in the GUI part, but putting them here
+    means that you have all the thread controls in a single place.
+    """
+    def __init__(self, master):
+        """
+        Start the GUI and the asynchronous threads. We are in the main
+        (original) thread of the application, which will later be used by
+        the GUI. We spawn a new thread for the worker.
+        """
+        self.master = master
+
+        # Create the queue
+        self.queue = queue.Queue()
+
+        # Set up the GUI part
+        self.gui = Application(self, master, self.queue, self.endApplication)
+
+    def periodicCall(self):
+        """
+        Check every 100 ms if there is something new in the queue.
+        """
+        self.gui.processIncoming()
+        if not self.running:
+            # This is the brutal stop of the system. You may want to do
+            # some cleanup before actually shutting it down.
+            import sys
+            sys.exit(1)
+        self.master.after(100, self.periodicCall)
+
+    def workerThread1(self):
+        """
+        This is where we handle the asynchronous I/O. For example, it may be
+        a 'select()'.
+        One important thing to remember is that the thread has to yield
+        control.
+        """
+        while self.running:
+            # To simulate asynchronous I/O, we create a random number at
+            # random intervals. Replace the following 2 lines with the real
+            # thing.
+            time.sleep(rand.random() * 0.3)
+            msg = rand.random()
+            self.queue.put(msg)
+
+    def endApplication(self):
+        self.running = 0
+
+rand = random.Random()
+app = tk.Tk()
+
+client = ThreadedClient(app)
 app.mainloop()
