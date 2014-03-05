@@ -16,9 +16,11 @@ class Application(tk.Frame):
         self.thread = thread
         self.queue = queue
         self.endcommand = endCommand
-        algooutput, algoversion, algorunoptimization, videospath = get_general_params()
+        algooutput, algoversion, algofolder, algorunoptimization, videospath = get_general_params()
         self.optimize = IntVar()
         self.optimize.set(algorunoptimization)
+        self.algofolder = StringVar()
+        self.algofolder.set(algofolder)
         self.algoversion = StringVar()
         self.algoversion.set(algoversion)
         self.algooutputfolder = StringVar()
@@ -39,41 +41,45 @@ class Application(tk.Frame):
 
     def createWidgets(self):
         # Algorithm Version
-        self.L1 = Label(self, text="Algorithm Version").grid(row=0, sticky=W)
+        self.L1 = Label(self, text="Algorithm Version").grid(row=0, column=0)
         self.E1 = Entry(self, bd =5, textvariable=self.algoversion).grid(row=0, column=1)
         # self.E1.insert(0,"1")
 
+        # Algorithm Folder
+        self.L1 = Label(self, text="Algorithm Folder").grid(row=1, column=0)
+        self.E1 = Entry(self, bd =5, textvariable=self.algofolder).grid(row=1, column=1)
+
         # Algorithm Output Folder
-        self.L2 = Label(self, text="Algorithm Output Folder").grid(row=1, sticky=W)
-        self.E2 = Entry(self, bd =5, textvariable=self.algooutputfolder).grid(row=1, column=1)
+        self.L2 = Label(self, text="Algorithm Output Folder").grid(row=2, sticky=W)
+        self.E2 = Entry(self, bd =5, textvariable=self.algooutputfolder).grid(row=2, column=1)
 
         # Video Folder
-        self.L3 = Label(self, text="Video Folder").grid(row=2, sticky=W)
-        self.E3 = Entry(self, bd =5, textvariable=self.videofolder).grid(row=2, column=1)
+        self.L3 = Label(self, text="Video Folder").grid(row=3, sticky=W)
+        self.E3 = Entry(self, bd =5, textvariable=self.videofolder).grid(row=3, column=1)
 
         # Add Update Remove Parameter
-        self.addupdateparambutton = tk.Button(self, text="Add or Update Parameter",command=self.add_update_param).grid(row=3, column=0)
-        self.removeparambutton = tk.Button(self, text="Remove Parameter",command=self.remove_param).grid(row=3, column=2)
-        self.addparamentry = Entry(self, bd =5, textvariable=self.addparam).grid(row=3, column=1)
+        self.addupdateparambutton = tk.Button(self, text="Add or Update Parameter",command=self.add_update_param).grid(row=4, column=0)
+        self.removeparambutton = tk.Button(self, text="Remove Parameter",command=self.remove_param).grid(row=4, column=2)
+        self.addparamentry = Entry(self, bd =5, textvariable=self.addparam).grid(row=4, column=1)
 
         # Optimize radio button
-        self.R1 = tk.Radiobutton(self, text="Optimize", variable=self.optimize, value=1).grid(row=4,column=0)
-        self.R2 = tk.Radiobutton(self, text="Default", variable=self.optimize, value=0).grid(row=4,column=1)
+        self.R1 = tk.Radiobutton(self, text="Optimize", variable=self.optimize, value=1).grid(row=5,column=0)
+        self.R2 = tk.Radiobutton(self, text="Default", variable=self.optimize, value=0).grid(row=5,column=1)
 
         # Run Cycle Button
         self.runcyclebutton = tk.Button(self)
         self.runcyclebutton["text"] = "Run Cycle"
         self.runcyclebutton["command"] = self.runcyclethread
-        self.runcyclebutton.grid(row=5,column=0)
+        self.runcyclebutton.grid(row=6,column=0)
 
         # Status Label
-        self.lblstatus.grid(row=6, column=0)
+        self.lblstatus.grid(row=7, column=0)
 
         # Parameter List
-        self.lbparams.grid(row=7,column=0)
+        self.lbparams.grid(row=8,column=0)
 
         # Report List
-        self.lbreport.grid(row=7,column=1)
+        self.lbreport.grid(row=8,column=1)
 
     def runcyclethread(self):
          # Set up the thread to do asynchronous I/O
@@ -91,6 +97,7 @@ class Application(tk.Frame):
     def runcycle(self):
         run_cycle(self,str(self.optimize.get()),
                   str(self.algoversion.get()),
+                  str(self.algofolder.get()),
                   str(self.algooutputfolder.get()),
                   str(self.videofolder.get()),
                   self.params)

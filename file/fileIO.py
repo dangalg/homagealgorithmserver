@@ -1,4 +1,5 @@
 import os
+import os.path
 
 __author__ = 'danga_000'
 
@@ -11,15 +12,18 @@ def get_file_by_name_read(filename):
 
 def list_videos_by_path(path):
     videos = []
-    for file in os.listdir(os.path.abspath(path)):
-        if file.endswith(".mp4"): # to get specific files
-            videos.append(file)
-        if file.endswith(".avi"): # to get specific files
-            videos.append(file)
-        if file.endswith(".wav"): # to get specific files
-            videos.append(file)
-        if file.endswith(".mov"): # to get specific files
-            videos.append(file)
+    videos = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
+
+    # for file in os.listdir(os.path.abspath(path)):
+    #     if file.endswith(".mp4"): # to get specific files
+    #         videos.append(file)
+    #     if file.endswith(".avi"): # to get specific files
+    #         videos.append(file)
+    #     if file.endswith(".wav"): # to get specific files
+    #         videos.append(file)
+    #     if file.endswith(".mov"): # to get specific files
+    #         videos.append(file)
+
     return videos
 
 def list_frames_by_path(path):

@@ -7,9 +7,10 @@ import math, operator
 
 __author__ = 'danga_000'
 
-def run_compare_on_frame(algofile, gtfile, params):
+def run_compare_on_frame(algofile, algofolder, algoversion, gtfile, params):
     # algofile = fileIO.get_file_by_name_read(os.path.abspath(algofilepath))
     # gtfile = fileIO.get_file_by_name_read(os.path.abspath(gtfilepath))
+    #Algo_Path Countour_Path First_Frame_Path -bmp Output_Path
     return calculate(algofile, gtfile, params)
 
 def calculate(algofile, gtfile, params):

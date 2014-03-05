@@ -45,13 +45,15 @@ def get_params_list(optimize):
         return [paramtuple]
 
 
-def set_user_info(optimize,algoversion,algooutputfolder,videofolder,params):
+def set_user_info(optimize,algoversion,algofolder,algooutputfolder,videofolder,params):
     #set Algorithm output and version
     gpalgooutput = GeneralParam('AlgorithmOutput', str(algooutputfolder))
     gpalgoversion = GeneralParam('AlgorithmVersion', str(algoversion))
+    gpalgofolder = GeneralParam('AlgorithmFolder', str(algofolder))
     algorunoptimization = GeneralParam('RunOptimization', str(optimize))
     videofolder = GeneralParam('VideoFolder', str(videofolder))
     insert_update_general_param(gpalgooutput)
+    insert_update_general_param(gpalgofolder)
     insert_update_general_param(gpalgoversion)
     insert_update_general_param(algorunoptimization)
     insert_update_general_param(videofolder)
@@ -69,23 +71,24 @@ def get_general_params():
     gps = general_param_logic.get_general_params()
     algooutput = gps['AlgorithmOutput']
     algoversion = gps['AlgorithmVersion']
+    algofolder = gps['AlgorithmFolder']
     if gps['RunOptimization'] == '1':
         algorunoptimization = True
     else:
         algorunoptimization = False
     videospath = gps['VideoFolder']
-    return algooutput, algoversion, algorunoptimization, videospath
+    return algooutput, algoversion, algofolder, algorunoptimization, videospath
 
 
 def save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospath):
-    path = os.path.abspath(videospath + algooutput + "/" + algoversion + "/" + str(cycleid) + "/")
+    path = os.path.abspath(algooutput + "/" + algoversion + "/" + str(cycleid) + "/")
     if not os.path.exists(path):
         os.makedirs(path)
     file = fileIO.get_file_by_name_write(path + "\\" + "cycle-" + str(cycleid) + "-score.txt")
     file.write(str(avgscore))
 
 
-def run_video_cycle(app, algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath):
+def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvideos, params, score, startdate, videos, videospath):
     videocount = numofvideos
     i=2
     for video in videos:
@@ -96,7 +99,7 @@ def run_video_cycle(app, algooutput, algoversion, cycleid, numofvideos, params, 
         try:
             # if video.ffmpeg == 0: #TODO make ffmpeg work if needed
             #     ffmpeg_on_video(video)
-            autovideo = run_algorithm_then_compare(cycleid, video, params)
+            autovideo = run_algorithm_then_compare(cycleid, video,algooutput,algofolder,algoversion, params)
             if autovideo.averagescore != 0:
                 score = score + autovideo.averagescore
                 app.lbreport.insert(i,"Score: " + str(score))
@@ -123,14 +126,14 @@ def run_video_cycle(app, algooutput, algoversion, cycleid, numofvideos, params, 
     save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospath)
 
 
-def run_cycle(app, optimize,algoversion,algooutputfolder,videofolder,params):
+def run_cycle(app, optimize,algoversion,algofolder,algooutputfolder,videofolder,params):
     app.lblstatus['text'] = "Setting params..."
     app.lbreport.insert(2,"Setting params...")
     # get new cycle_id
     cycleid = auto_run_logic.get_new_cycle_id()
-    set_user_info(optimize,algoversion,algooutputfolder,videofolder,params)
+    set_user_info(optimize,algoversion,algofolder,algooutputfolder,videofolder,params)
     # Get general_params
-    algooutput, algoversion, algorunoptimization, videospath = get_general_params()
+    algooutput, algoversion,algofolder, algorunoptimization, videospath = get_general_params()
     # get existing videos automatically from their folder and insert to database if needed
     videos = insert_update_videos_from_path(videospath)
     numofvideos = len(videos)
@@ -144,5 +147,5 @@ def run_cycle(app, optimize,algoversion,algooutputfolder,videofolder,params):
         startdate= datetime.datetime.now()
         # run cycle on all videos:
         score = 0
-        run_video_cycle(app, algooutput, algoversion, cycleid, numofvideos, params, score, startdate, videos, videospath)
+        run_video_cycle(app, algooutput, algoversion,algofolder, cycleid, numofvideos, params, score, startdate, videos, videospath)
         cycleid += 1

@@ -14,20 +14,20 @@ import os
 from logic.logic_services import general_param_logic
 
 
-def run_algorithm_then_compare(cycleid, video, params):
+def run_algorithm_then_compare(cycleid, video, algooutput, algofolder, algoversion, params):
     # create auto video for insert in database
     autovideo = AutoRunVideo(cycleid,video.videoid, 0, "Not Initialized")
     try:
         # get video frames
         frames = get_all_frames_from_video(video)
         # create algorithm files
-        algofiles = run_algorithm(cycleid,video,frames)
+        algofiles = run_algorithm(cycleid,video,frames,algooutput, algofolder, algoversion)
         # get gt frames
         gtfiles = get_all_gt_files_from_video(video)
 
         if len(algofiles) == len(gtfiles):
             # run compare on every frame and save in auto_run_video_frame
-            avgscore = run_compare_on_frames(cycleid, video, algofiles, gtfiles, params)
+            avgscore = run_compare_on_frames(cycleid, video, algofolder, algoversion, algofiles, gtfiles, params)
             # save average in auto_run_video
             autovideo.averagescore = avgscore
             autovideo.avexception = "good"
@@ -44,14 +44,14 @@ def run_algorithm_then_compare(cycleid, video, params):
     return autovideo
 
 
-def run_compare_on_frames(cycleid, video, algofiles, gtfiles, params):
+def run_compare_on_frames(cycleid, video, algofolder, algoversion, algofiles, gtfiles, params):
     score = 0
     framecount = video.numofframes
     for i in range(0,video.numofframes):
         try:
-            framescore = run_compare_frame_to_testframe(cycleid,video,algofiles[i],gtfiles[i],i,params)
+            framescore = run_compare_frame_to_testframe(cycleid,video, algofolder, algoversion, algofiles[i],gtfiles[i],i,params)
             if framescore != 0:
-                score = score + run_compare_frame_to_testframe(cycleid,video,algofiles[i],gtfiles[i],i,params)
+                score = score + framescore
             else:
                 framecount -= 1
         except IOError:
@@ -65,8 +65,8 @@ def run_compare_on_frames(cycleid, video, algofiles, gtfiles, params):
         return avgscore
 
 
-def run_compare_frame_to_testframe(cycleid, video, algofile, gtfile, i, params):
-    score = run_compare_on_frame(algofile, gtfile, params)
+def run_compare_frame_to_testframe(cycleid, video, algofolder, algoversion, algofile, gtfile, i, params):
+    score = run_compare_on_frame(algofile, algofolder, algoversion, gtfile, params)
     # create and save frame to database
     autoframe = AutoRunVideoFrame(cycleid, video.videoid, i, score)
     insert_update_autorunvideoframe(autoframe)

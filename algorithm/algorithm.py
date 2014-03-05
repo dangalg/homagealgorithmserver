@@ -1,29 +1,29 @@
 import os
 from file import fileIO
+from file.fileIO import list_frames_by_path
 from logic.logic_services import general_param_logic
 
 __author__ = 'danga_000'
 
 
-def create_algorithm_output_path(cycleid, video):
+def create_algorithm_output_path(cycleid, video, algooutput, algoversion):
     # Create the path to save the frame
-    gps = general_param_logic.get_general_params()
-    path = os.path.abspath(gps['VideoFolder'] + gps['AlgorithmOutput'] + "/" + gps['AlgorithmVersion'] + "/" + str(cycleid)
-        + "/" + video.videoname.split('.')[0] + "/")
+    path = os.path.abspath(algooutput + algoversion + "/" + str(cycleid)
+        + "/" + video.videoname + "/")
     if not os.path.exists(path):
         os.makedirs(path)
     return path
 
 
-def run_algorithm(cycleid, video, frames):
-    path = create_algorithm_output_path(cycleid, video)
+def run_algorithm(cycleid, video, frames, algooutput, algofolder, algoversion):
+    path = create_algorithm_output_path(cycleid, video, algooutput,algoversion)
     # run algorithm on all frames and return them
-    algofiles = []
-    for i in range(1,len(frames) + 1):
-        # Run Algorithm on frames and save to output folder
-        algofilepath = path + "\\" + "output_result" + '{0:04}'.format(i) + ".txt"
-        # write all result files to output folder
-        file = fileIO.get_file_by_name_write(algofilepath)
-        file.write("00======>")
-        algofiles.append(file)
+    algocommand = algofolder + algoversion + '/' + 'UniformMattingCA.exe ' \
+    + video.path + '/' + video.videoname + '.ctr ' \
+    + 'C:/Dummy.ebox ' + video.path + '/' + 'Frames' + '/image-0001.jpg -bmp ' \
+    + path + '\\' + 'image-0001.bmp'
+    os.system(algocommand)
+
+
+    algofiles = list_frames_by_path(path)
     return algofiles

@@ -30,21 +30,23 @@ def get_all_frames_from_video(video):
     frames = []
     path = get_frame_path(video)
     if os.path.exists(path):
-        for i in range(1,video.numofframes + 1):
-            frame = get_frame_path(video) + "/" + video.videoname.split('.')[0] + "-" + '{0:04}'.format(i) + ".jpg"
-            if os.path.exists(frame):
-                frames.append(frame)
+        frames = list_frames_by_path(path)
+        # for i in range(1,video.numofframes + 1):
+        #     frame = get_frame_path(video) + "/" + "image" + "-" + '{0:04}'.format(i) + ".jpg"
+        #     if os.path.exists(frame):
+        #         frames.append(frame)
     return frames
 
 def get_all_gt_files_from_video(video):
     testframes = []
-    GTpath = get_frame_path(video) + "_GT"
+    GTpath = get_GT_path(video)
     if os.path.exists(GTpath):
-        testpath = get_frame_path(video) + "_GT" + "/" + video.videoname.split('.')[0] + "-"
-        for i in range(1,video.numofframes + 1):
-            frame = testpath + '{0:04}'.format(i) + ".txt"
-            if os.path.exists(frame):
-                testframes.append(frame)
+        testframes = list_frames_by_path(GTpath)
+        # testpath = get_GT_path(video) + "/" + "image" + "-"
+        # for i in range(0,video.numofframes):
+        #     frame = testpath + '{0:02}'.format(i) + ".bmp"
+        #     if os.path.exists(frame):
+        #         testframes.append(frame)
     return testframes
 
 def escape_backslash(name):
@@ -92,7 +94,10 @@ def get_framnum_from_path(video):
     return len(frames)
 
 def get_frame_path(video):
-    return video.path + video.videoname.split('.')[0]
+    return video.path + "/" + "Frames" #video.videoname.split('.')[0]
+
+def get_GT_path(video):
+    return video.path + "/" + "GT" #video.videoname.split('.')[0]
 
 def insert_update_videos_from_path(path):
     videos = list_videos_by_path(path)
@@ -102,7 +107,7 @@ def insert_update_videos_from_path(path):
     for v in videos:
         try:
             updvid = get_video_by_name(v)
-            vid = Video(newid, v, 0 , path, 0)
+            vid = Video(newid, v, 0 , path + v, 0)
             framenum = get_framnum_from_path(vid)
             vid.numofframes = framenum # Frames must be in a folder with the same name as the video
             # Example: videoname path = c:\test.avi frames path = c:\test\
