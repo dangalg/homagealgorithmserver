@@ -29,10 +29,25 @@ def list_videos_by_path(path):
 def list_frames_by_path(path):
     frames = []
     for file in os.listdir(os.path.abspath(path)):
+        # if file.endswith(".plf"): # to get specific files
+        #     frames.append(file)
         if file.endswith(".jpg"): # to get specific files
             frames.append(file)
         if file.endswith(".png"): # to get specific files
             frames.append(file)
         if file.endswith(".bmp"): # to get specific files
             frames.append(file)
+    return frames
+
+def list_gt_frames_by_path(path):
+    frames = []
+    for file in os.listdir(os.path.abspath(path)):
+        if file.endswith(".plf"): # to get specific files
+            frames.append(file)
+        # if file.endswith(".jpg"): # to get specific files
+        #     frames.append(file)
+        # if file.endswith(".png"): # to get specific files
+        #     frames.append(file)
+        # if file.endswith(".bmp"): # to get specific files
+        #     frames.append(file)
     return frames

@@ -3,7 +3,7 @@ import threading
 import random
 import queue
 import tkinter as tk
-from logic.logic_services.parameter_logic import get_all_params
+from logic.logic_services.parameter_logic import get_all_params, get_params_by_algo_version
 from models.parameter import Parameter
 from runcycle.cycle import run_cycle, get_general_params
 
@@ -33,7 +33,7 @@ class Application(tk.Frame):
         self.lbparams = tk.Listbox(self)
         self.lbreport = tk.Listbox(self)
         self.lbparams.bind("<Double-Button-1>", self.OnDouble)
-        self.params = get_all_params()
+        self.params = get_params_by_algo_version(algoversion)
         self.get_params_into_listbox()
         self.grid()
         self.createWidgets()
@@ -122,7 +122,7 @@ class Application(tk.Frame):
         #create param from user insert and append to list
         if str(self.addparam.get()) != '':
             list = self.addparam.get().split(',')
-            p = Parameter(str(list[0]),list[1],list[2],list[3],list[4])
+            p = Parameter(self.algoversion, str(list[0]),list[1],list[2],list[3],list[4])
             update = False
             for i in range(0, len(self.params)):
                 if self.params[i].name == p.name:
@@ -138,7 +138,7 @@ class Application(tk.Frame):
     def remove_param(self):
         if str(self.addparam.get()) != '':
             list = self.addparam.get().split(',')
-            p = Parameter(str(list[0]),list[1],list[2],list[3],list[4])
+            p = Parameter(self.algoversion, str(list[0]),list[1],list[2],list[3],list[4])
             for i in range(0, len(self.params)):
                 if self.params[i].name == p.name:
                     p = self.params[i]

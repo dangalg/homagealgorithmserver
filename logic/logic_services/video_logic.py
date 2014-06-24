@@ -1,6 +1,6 @@
 import os
 from data.data_services import video_db
-from file.fileIO import list_videos_by_path, list_frames_by_path
+from file.fileIO import list_videos_by_path, list_frames_by_path, list_gt_frames_by_path
 from models.video import Video
 from utils import log
 from file import fileIO
@@ -41,7 +41,7 @@ def get_all_gt_files_from_video(video):
     testframes = []
     GTpath = get_GT_path(video)
     if os.path.exists(GTpath):
-        testframes = list_frames_by_path(GTpath)
+        testframes = list_gt_frames_by_path(GTpath)
         # testpath = get_GT_path(video) + "/" + "image" + "-"
         # for i in range(0,video.numofframes):
         #     frame = testpath + '{0:02}'.format(i) + ".bmp"
@@ -97,7 +97,7 @@ def get_frame_path(video):
     return video.path + "/" + "Frames" #video.videoname.split('.')[0]
 
 def get_GT_path(video):
-    return video.path + "/" + "GT" #video.videoname.split('.')[0]
+    return video.path #video.videoname.split('.')[0]
 
 def insert_update_videos_from_path(path):
     videos = list_videos_by_path(path)

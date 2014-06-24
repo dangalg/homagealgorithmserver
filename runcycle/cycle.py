@@ -1,13 +1,14 @@
 import datetime
 import itertools
 import os
-from algorithm.algorithm import run_algorithm
+from algorithm.algorithm import run_algorithm, create_algorithm_output_path, create_params_output_path
 
 from algorithm.prepare_algorithm import run_algorithm_then_compare
 from file import fileIO
 from logic.logic_services import auto_run_logic
 from logic.logic_services.general_param_logic import insert_update_general_param
-from logic.logic_services.parameter_logic import insert_update_param_by_name, get_all_params, delete_param_by_name
+from logic.logic_services.parameter_logic import insert_update_param_by_name, get_all_params, delete_param_by_name, \
+    get_params_by_algo_version
 from logic.logic_services.video_logic import get_all_videos, insert_update_videos_from_path
 from models.autorun import AutoRun
 from logic.logic_services import general_param_logic
@@ -27,11 +28,11 @@ def frange(min, max, jump):
     return paramlist
 
 
-def get_params_list(optimize):
+def get_params_list(optimize,algoversion):
     paramlists = []
     paramtuple = ()
     # Get params from database to list
-    paramsdb = get_all_params()
+    paramsdb = get_params_by_algo_version(algoversion)
     # create a list of all parameter values to iterate over for each parameter
     for param in paramsdb:
         if optimize:
@@ -58,13 +59,17 @@ def set_user_info(optimize,algoversion,algofolder,algooutputfolder,videofolder,p
     insert_update_general_param(algorunoptimization)
     insert_update_general_param(videofolder)
     # Remove all params
-    dbparams = get_all_params()
+    dbparams = get_params_by_algo_version(algoversion)
     for dbparam in dbparams:
-            delete_param_by_name(dbparam.name)
+        delete_param_by_name(algoversion, dbparam.name)
     # Insert params from user
     for param in params:
-        insert_update_param_by_name(param.name, param)
+        insert_update_param_by_name(algoversion, param.name, param)
 
+
+def deleteContent(fName):
+    with open(fName, "w"):
+        pass
 
 
 def get_general_params():
@@ -91,6 +96,7 @@ def save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospa
 def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvideos, params, score, startdate, videos, videospath):
     videocount = numofvideos
     i=2
+    avgscore = 0
     for video in videos:
         i = i+1
         app.lblstatus['text'] = "Testing " + video.videoname
@@ -101,8 +107,8 @@ def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvide
             #     ffmpeg_on_video(video)
             autovideo = run_algorithm_then_compare(cycleid, video,algooutput,algofolder,algoversion, params)
             if autovideo.averagescore != 0:
-                score = score + autovideo.averagescore
-                app.lbreport.insert(i,"Score: " + str(score))
+                avgscore = avgscore + autovideo.averagescore
+                app.lbreport.insert(i,"Score: " + str(autovideo.averagescore))
             else:
                 videocount -= 1
         except IOError:
@@ -115,7 +121,7 @@ def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvide
             app.lbreport.insert(video.videoname,"Error in video: " + video.videoname)
     # Save average score
     if videocount != 0:
-        avgscore = score / videocount
+        avgscore = avgscore / videocount
     else:
         avgscore = 0
     # create auto_run with params
@@ -137,15 +143,27 @@ def run_cycle(app, optimize,algoversion,algofolder,algooutputfolder,videofolder,
     # get existing videos automatically from their folder and insert to database if needed
     videos = insert_update_videos_from_path(videospath)
     numofvideos = len(videos)
-    paramlists = get_params_list(algorunoptimization)
+    paramlists = get_params_list(algorunoptimization,algoversion)
     if algorunoptimization:
         permutationlist = list(itertools.product(*paramlists))
     else:
         permutationlist = paramlists
-    # cycle through params
-    for params in permutationlist:
+    # ----cycle through params------
+    # Empty params file and refill it
+    paramsfile = create_params_output_path(cycleid, algooutput, algoversion) + '/params.xml'
+    for i in range(0, len(permutationlist)):
+        # fix params file
+        deleteContent(paramsfile)
+        with open(paramsfile, "a") as myfile:
+            myfile.write("<UniformBackgroundPrm>\n")
+        for j in range(0, len(params)):
+            with open(paramsfile, "a") as myfile:
+                myfile.write('<' + params[j].name +'>' + str(permutationlist[i][j]) + '</' + params[j].name + '>\n')
+        with open(paramsfile, "a") as myfile:
+            myfile.write("</UniformBackgroundPrm>")
         startdate= datetime.datetime.now()
         # run cycle on all videos:
         score = 0
         run_video_cycle(app, algooutput, algoversion,algofolder, cycleid, numofvideos, params, score, startdate, videos, videospath)
         cycleid += 1
+        paramsfile = create_params_output_path(cycleid, algooutput, algoversion) + '/params.xml'
