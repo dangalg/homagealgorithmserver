@@ -12,7 +12,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/homagealgotester$homage.coverage" NAME="homage Coverage Results" MODIFIED="1402898246728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/homagealgotester$homage.coverage" NAME="homage Coverage Results" MODIFIED="1403603440123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -29,7 +29,7 @@
       <file leaf-file-name="cycle.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runcycle/cycle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="168" column="0" selection-start="6981" selection-end="6981" vertical-scroll-proportion="0.0" vertical-offset="2587" max-vertical-offset="2958">
+            <state line="129" column="51" selection-start="5028" selection-end="5028" vertical-scroll-proportion="0.0" vertical-offset="1754" max-vertical-offset="2703">
               <folding />
             </state>
           </provider>
@@ -47,25 +47,34 @@
       <file leaf-file-name="compare.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compare/compare.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="0" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="510">
+            <state line="16" column="19" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="510">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="algorithm.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="algorithm.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorithm/algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="40" selection-start="1210" selection-end="1210" vertical-scroll-proportion="0.60399336" vertical-offset="62" max-vertical-offset="663">
+            <state line="28" column="40" selection-start="1210" selection-end="1210" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="663">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="prepare_algorithm.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="db.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/db.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="0" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="prepare_algorithm.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorithm/prepare_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="0" selection-start="2833" selection-end="2833" vertical-scroll-proportion="0.0" vertical-offset="1105" max-vertical-offset="1904">
+            <state line="70" column="0" selection-start="2977" selection-end="2977" vertical-scroll-proportion="0.33153638" vertical-offset="914" max-vertical-offset="1751">
               <folding />
             </state>
           </provider>
@@ -404,8 +413,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25203854" sideWeight="0.67221296" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3460925" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25203854" sideWeight="0.67221296" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3460925" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42264754" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -437,7 +446,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="167" />
+      <option name="time" value="168" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -644,11 +653,6 @@
         <state line="96" column="69" selection-start="2979" selection-end="2979" vertical-scroll-proportion="0.0" vertical-offset="876" max-vertical-offset="1632" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="230" max-vertical-offset="561" />
-      </provider>
-    </entry>
     <entry file="file://C:/Python33/Lib/site-packages/pymysql/connections.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="713" column="0" selection-start="24797" selection-end="24797" vertical-scroll-proportion="0.0" vertical-offset="11930" max-vertical-offset="19839" />
@@ -679,13 +683,6 @@
         <state line="13" column="39" selection-start="324" selection-end="359" vertical-scroll-proportion="0.50595236" vertical-offset="51" max-vertical-offset="561" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compare/compare.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/homage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="102" column="0" selection-start="4100" selection-end="4100" vertical-scroll-proportion="0.0" vertical-offset="1734" max-vertical-offset="3859">
@@ -693,23 +690,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algorithm/prepare_algorithm.py">
+    <entry file="file://$PROJECT_DIR$/data/db.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="2833" selection-end="2833" vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1751">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/runcycle/cycle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="0" selection-start="6981" selection-end="6981" vertical-scroll-proportion="0.0" vertical-offset="2587" max-vertical-offset="2958">
+        <state line="19" column="0" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorithm/algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="40" selection-start="1210" selection-end="1210" vertical-scroll-proportion="0.60399336" vertical-offset="62" max-vertical-offset="663">
+        <state line="28" column="40" selection-start="1210" selection-end="1210" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="663">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compare/compare.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="19" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="510">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runcycle/cycle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="51" selection-start="5028" selection-end="5028" vertical-scroll-proportion="0.0" vertical-offset="1754" max-vertical-offset="2703">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorithm/prepare_algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="0" selection-start="2977" selection-end="2977" vertical-scroll-proportion="0.33153638" vertical-offset="914" max-vertical-offset="1751">
           <folding />
         </state>
       </provider>

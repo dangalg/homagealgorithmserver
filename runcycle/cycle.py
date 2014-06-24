@@ -93,7 +93,7 @@ def save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospa
     file.write(str(avgscore))
 
 
-def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvideos, params, score, startdate, videos, videospath):
+def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvideos,permutations, params, score, startdate, videos, videospath):
     videocount = numofvideos
     i=2
     avgscore = 0
@@ -126,7 +126,8 @@ def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvide
         avgscore = 0
     # create auto_run with params
     app.lbreport.insert(cycleid,"Cycle " + str(cycleid) + " Score: " + str(avgscore))
-    ar = AutoRun(cycleid, algoversion, params, startdate, datetime.datetime.now(), avgscore)
+
+    ar = AutoRun(cycleid, algoversion, permutations, startdate, datetime.datetime.now(), avgscore)
     # Save autorun info
     auto_run_logic.insert_update_autorun(ar)
     save_avgscore_to_report(algooutput, algoversion, avgscore, cycleid, videospath)
@@ -164,6 +165,6 @@ def run_cycle(app, optimize,algoversion,algofolder,algooutputfolder,videofolder,
         startdate= datetime.datetime.now()
         # run cycle on all videos:
         score = 0
-        run_video_cycle(app, algooutput, algoversion,algofolder, cycleid, numofvideos, params, score, startdate, videos, videospath)
+        run_video_cycle(app, algooutput, algoversion,algofolder, cycleid, numofvideos,permutationlist[i], params, score, startdate, videos, videospath)
         cycleid += 1
         paramsfile = create_params_output_path(cycleid, algooutput, algoversion) + '/params.xml'
