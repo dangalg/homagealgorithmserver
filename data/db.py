@@ -8,7 +8,7 @@ def get_connection():
     if not connection:
         connection = pymysql.connect(host="localhost", # your host, usually localhost
                      user="root", # your username
-                      passwd="", # your password
+                      passwd="1234", # your password
                       db="homage") # name of the data base
         connection.autocommit(True)
     return connection

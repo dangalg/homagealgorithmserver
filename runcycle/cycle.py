@@ -166,5 +166,5 @@ def run_cycle(app, optimize,algoversion,algofolder,algooutputfolder,videofolder,
         # run cycle on all videos:
         score = 0
         run_video_cycle(app, algooutput, algoversion,algofolder, cycleid, numofvideos,permutationlist[i], params, score, startdate, videos, videospath)
-        cycleid += 1
         paramsfile = create_params_output_path(cycleid, algooutput, algoversion) + '/params.xml'
+        cycleid += 1
