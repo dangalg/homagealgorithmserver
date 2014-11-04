@@ -112,11 +112,7 @@ def run_video_cycle(app, algooutput, algoversion, algofolder, cycleid, numofvide
             else:
                 videocount -= 1
         except IOError:
-            log.log_errors("cannot get id: " + str(video.videoid) + "name: " +
-                           video.videoname + "num of frames: " +
-                           str(video.numofframes) + "path: " +
-                           video.path + "ffmpeg: " +
-                           str(video.ffmpeg))
+            log.log_errors(IOError)
             videocount -= 1
             app.lbreport.insert(video.videoname,"Error in video: " + video.videoname)
     # Save average score

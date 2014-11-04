@@ -118,6 +118,7 @@ def insert_update_videos_from_path(path):
                 newid += 1
             else:
                 video_db.update_video_by_id(updvid.videoid,vid)
+                vid.videoid = updvid.videoid
             videosinfolder.append(vid)
         except IOError:
             log_video_error("insert_update_videos_from_path error in video named {0}: ".format(v), vid)
