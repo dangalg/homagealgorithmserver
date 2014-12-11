@@ -42,7 +42,7 @@ def list_frames_by_path(path):
 def list_gt_frames_by_path(path):
     frames = []
     for file in os.listdir(os.path.abspath(path)):
-        if file.endswith(".plf"): # to get specific files
+        if file.endswith(".plf") and not file.endswith("-h.plf"): # to get specific files
             frames.append(file)
         # if file.endswith(".jpg"): # to get specific files
         #     frames.append(file)
