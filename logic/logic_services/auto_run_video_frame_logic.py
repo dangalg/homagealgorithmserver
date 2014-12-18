@@ -7,10 +7,7 @@ def get_AutoRunVideoFrame_by_cycleidvideoidframeid(cycleid,videoid,frameid):
     return auto_run_video_frame_db.get_AutoRunVideoFrame_by_cycleidvideoidframeid(cycleid,videoid,frameid)
 
 
-def insert_update_autorunvideoframe(autorunvideoframe):
-    if get_AutoRunVideoFrame_by_cycleidvideoidframeid(autorunvideoframe.cycleid,autorunvideoframe.videoid,autorunvideoframe.frameid):
-        update_score(autorunvideoframe,autorunvideoframe.score)
-    else:
+def insert_autorunvideoframe(autorunvideoframe):
         auto_run_video_frame_db.insert_autorunvideoframe(autorunvideoframe)
 
 def update_score(autorunvideoframe,score):

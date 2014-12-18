@@ -50,4 +50,4 @@ def list_gt_frames_by_path(path):
         #     frames.append(file)
         # if file.endswith(".bmp"): # to get specific files
         #     frames.append(file)
-    return frames
+    return frames[0]

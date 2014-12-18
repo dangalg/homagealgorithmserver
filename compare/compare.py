@@ -8,6 +8,8 @@ import math, operator
 
 __author__ = 'danga_000'
 
+
+
 def run_compare_on_frame(framenum, avgdistX, avgdistY, varX, varY, pctX, pctY):
     return calculate(framenum, avgdistX, avgdistY, varX, varY, pctX, pctY)
 
@@ -21,5 +23,5 @@ def calculate(framenum, avgdistX, avgdistY, varX, varY, pctX, pctY):
     if varX > varY:
         var = varX
 
-    score = float((float(pixledistancepercentage) * float(100.00)) - (math.sqrt(float(var))))
+    score = float((float(pixledistancepercentage) * float(100.00)) - (float(var)))
     return float(score)

@@ -6,24 +6,25 @@ from logic.logic_services import general_param_logic
 __author__ = 'danga_000'
 
 
-def create_algorithm_output_path(cycleid, video, algooutput, algoversion):
+def create_algorithm_output_path(cycleid, video, algoversion):
     # Create the path to save the frame
-    path = os.path.abspath(algooutput + algoversion + "/" + str(cycleid)
-        + "/" + video.videoname + "/")
+    # path = os.path.abspath(algooutput + algoversion + "/" + str(cycleid)
+    #     + "/" + video.videoname + "/")
+    path = os.path.abspath(video.path + "/" + algoversion + "/"  + str(cycleid) + "/")
     if not os.path.exists(path):
         os.makedirs(path)
     return path
 
-def create_params_output_path(cycleid, algooutput, algoversion):
+def create_params_output_path(algofolder, cycleid, algoversion):
     # Create the path to save the frame
-    path = os.path.abspath(algooutput + algoversion + "/" + str(cycleid) + "/")
+    path = os.path.abspath(algofolder + "/" + algoversion + "/" + str(cycleid) + "/")
     if not os.path.exists(path):
         os.makedirs(path)
     return path
 
-def run_algorithm(cycleid, video, frames, algooutput, algofolder, algoversion, params):
-    path = create_algorithm_output_path(cycleid, video, algooutput,algoversion)
-    paramspath = create_params_output_path(cycleid, algooutput, algoversion)
+def run_algorithm(cycleid, video, algofolder, algoversion):
+    path = create_algorithm_output_path(cycleid, video, algoversion)
+    paramspath = create_params_output_path(algofolder, cycleid, algoversion)
     # UniformMattingCA.exe -CA params.xml contour.ctr image-0001.jpg -avic -r25 -mp4 output.avi
     algocommand = algofolder + algoversion + '/' +  'UniformMattingCA.exe -CA ' \
     + paramspath + '/' + 'params.xml ' \

@@ -3,11 +3,8 @@ import threading
 import random
 import queue
 import tkinter as tk
-from logic.logic_services.parameter_logic import get_all_params, get_params_by_algo_version
-from models.parameter import Parameter
 from runcycle.cycle import run_cycle, get_general_params
-
-from tkinter import *
+from tkinter.filedialog import *
 
 
 class Application(tk.Frame):
@@ -16,51 +13,65 @@ class Application(tk.Frame):
         self.thread = thread
         self.queue = queue
         self.endcommand = endCommand
-        algooutput, algoversion, algofolder, algorunoptimization, videospath = get_general_params()
+        algoversion, algofolder, algorunoptimization, videospath, paramspath = get_general_params()
         self.optimize = IntVar()
         self.optimize.set(algorunoptimization)
+
         self.algofolder = StringVar()
         self.algofolder.set(algofolder)
+
         self.algoversion = StringVar()
         self.algoversion.set(algoversion)
-        self.algooutputfolder = StringVar()
-        self.algooutputfolder.set(algooutput)
+
         self.videofolder = StringVar()
         self.videofolder.set(videospath)
-        self.addparam = StringVar()
+
+        self.paramsfilepath = StringVar()
+        self.paramsfilepath.set(paramspath)
+
+        # self.addparam = StringVar()
         tk.Frame.__init__(self, master)
         self.lblstatus = Label(self, text="Ready")
-        self.lbparams = tk.Listbox(self)
-        self.lbreport = tk.Listbox(self)
-        self.lbparams.bind("<Double-Button-1>", self.OnDouble)
-        self.params = get_params_by_algo_version(algoversion)
-        self.get_params_into_listbox()
+        # self.lbparams = tk.Listbox(self)
+        self.lbreport = tk.Listbox(self, width=100)
+        # self.lbparams.bind("<Double-Button-1>", self.OnDouble)
+        # self.params = get_params_by_algo_version(algoversion)
+        # self.get_params_into_listbox()
         self.grid()
         self.createWidgets()
 
 
     def createWidgets(self):
-        # Algorithm Version
-        self.L1 = Label(self, text="Algorithm Version").grid(row=0, column=0)
-        self.E1 = Entry(self, bd =5, textvariable=self.algoversion).grid(row=0, column=1)
+
+
         # self.E1.insert(0,"1")
 
         # Algorithm Folder
-        self.L1 = Label(self, text="Algorithm Folder").grid(row=1, column=0)
-        self.E1 = Entry(self, bd =5, textvariable=self.algofolder).grid(row=1, column=1)
+        self.L1 = Label(self, text="Algorithm Folder").grid(row=0, column=0)
+        self.E1 = Entry(self, bd =5, textvariable=self.algofolder, width=50).grid(row=0, column=1)
+        self.getalgofolderbutton = tk.Button(self, text="Choose Folder",command=self.ChooseE1Folder).grid(row=0, column=2)
 
-        # Algorithm Output Folder
-        self.L2 = Label(self, text="Algorithm Output Folder").grid(row=2, sticky=W)
-        self.E2 = Entry(self, bd =5, textvariable=self.algooutputfolder).grid(row=2, column=1)
+        # Algorithm Version
+        self.L2 = Label(self, text="Algorithm Version").grid(row=1, column=0)
+        self.E2 = Entry(self, bd =5, textvariable=self.algoversion, width=50).grid(row=1, column=1)
+        self.getalgoversionbutton = tk.Button(self, text="Choose Folder",command=self.ChooseE2Folder).grid(row=1, column=2)
 
         # Video Folder
-        self.L3 = Label(self, text="Video Folder").grid(row=3, sticky=W)
-        self.E3 = Entry(self, bd =5, textvariable=self.videofolder).grid(row=3, column=1)
+        self.L4 = Label(self, text="Video Folder").grid(row=2, sticky=W)
+        self.E4 = Entry(self, bd =5, textvariable=self.videofolder, width=50).grid(row=2, column=1)
+        self.getvideofolderbutton = tk.Button(self, text="Choose Folder",command=self.ChooseE4Folder).grid(row=2, column=2)
 
-        # Add Update Remove Parameter
-        self.addupdateparambutton = tk.Button(self, text="Add or Update Parameter",command=self.add_update_param).grid(row=4, column=0)
-        self.removeparambutton = tk.Button(self, text="Remove Parameter",command=self.remove_param).grid(row=4, column=2)
-        self.addparamentry = Entry(self, bd =5, textvariable=self.addparam).grid(row=4, column=1)
+        # Video Folder
+        self.L5 = Label(self, text="Params File").grid(row=3, sticky=W)
+        self.E5 = Entry(self, bd =5, textvariable=self.paramsfilepath, width=50).grid(row=3, column=1)
+        self.getparamsfilepathbutton = tk.Button(self, text="Choose File",command=self.ChooseE5Folder).grid(row=3, column=2)
+
+        # self.L6 = Label(self, text="Name,Min,Max,Change,Default").grid(row=5, column=1)
+
+        # # Add Update Remove Parameter
+        # self.addupdateparambutton = tk.Button(self, text="Add or Update Parameter",command=self.add_update_param).grid(row=6, column=0)
+        # self.removeparambutton = tk.Button(self, text="Remove Parameter",command=self.remove_param).grid(row=6, column=2)
+        # self.addparamentry = Entry(self, bd =5, textvariable=self.addparam).grid(row=6, column=1)
 
         # Optimize radio button
         self.R1 = tk.Radiobutton(self, text="Optimize", variable=self.optimize, value=1).grid(row=5,column=0)
@@ -70,13 +81,13 @@ class Application(tk.Frame):
         self.runcyclebutton = tk.Button(self)
         self.runcyclebutton["text"] = "Run Cycle"
         self.runcyclebutton["command"] = self.runcyclethread
-        self.runcyclebutton.grid(row=6,column=0)
+        self.runcyclebutton.grid(row=6,column=1)
 
         # Status Label
-        self.lblstatus.grid(row=7, column=0)
+        self.lblstatus.grid(row=7, column=1)
 
-        # Parameter List
-        self.lbparams.grid(row=8,column=0)
+        # # Parameter List
+        # self.lbparams.grid(row=10,column=0)
 
         # Report List
         self.lbreport.grid(row=8,column=1)
@@ -85,7 +96,6 @@ class Application(tk.Frame):
          # Set up the thread to do asynchronous I/O
         # More can be made if necessary
         self.lblstatus['text'] = "Running..."
-        self.lbreport.insert(1, "Starting Run Cycle")
         self.thread.running = 1
         self.thread.thread1 = threading.Thread(target=self.runcycle)
         self.thread.thread1.start()
@@ -98,52 +108,85 @@ class Application(tk.Frame):
         run_cycle(self,str(self.optimize.get()),
                   str(self.algoversion.get()),
                   str(self.algofolder.get()),
-                  str(self.algooutputfolder.get()),
                   str(self.videofolder.get()),
-                  self.params)
+                  str(self.paramsfilepath.get()))
         self.lblstatus['text'] = "Ready"
 
         print("Finished running test!")
 
-    def get_params_into_listbox(self):
-        for i in range(0, len(self.params)):
-            self.lbparams.insert(str(i), str(self.params[i].name)
-                                         + "," + str(self.params[i].min)
-                                         + "," + str(self.params[i].max)
-                                         + "," + str(self.params[i].change)
-                                         + "," + str(self.params[i].default))
+    def ChooseE1Folder(self):
+        options = {}
+        options['initialdir'] = 'C:\\'
+        options['title'] = 'Please select the Algorithem Folder'
+        folder = askdirectory(**options)
+        self.algofolder.set(folder + '/')
 
-    def refresh_param_listbox(self):
-        self.lbparams.delete(0, 10)
-        self.get_params_into_listbox()
-        self.addparam.set('')
+    def ChooseE2Folder(self):
+        options = {}
+        if self.algofolder is not None:
+            options['initialdir'] = self.algofolder.get()
+        else:
+            options['initialdir'] = 'C:\\'
+        options['title'] = 'Please select the Algorithem Version Folder'
+        folder = askdirectory(**options)
+        self.algoversion.set(os.path.split(folder)[-1])
 
-    def add_update_param(self):
-        #create param from user insert and append to list
-        if str(self.addparam.get()) != '':
-            list = self.addparam.get().split(',')
-            p = Parameter(self.algoversion, str(list[0]),list[1],list[2],list[3],list[4])
-            update = False
-            for i in range(0, len(self.params)):
-                if self.params[i].name == p.name:
-                    self.params[i].min = p.min
-                    self.params[i].max = p.max
-                    self.params[i].change = p.change
-                    self.params[i].default = p.default
-                    update = True
-            if not update:
-                self.params.append(p)
-            self.refresh_param_listbox()
+    def ChooseE4Folder(self):
+        options = {}
+        options['initialdir'] = 'C:\\'
+        options['title'] = 'Please select the Video Folder'
+        folder = askdirectory(**options)
+        self.videofolder.set(folder + '/')
 
-    def remove_param(self):
-        if str(self.addparam.get()) != '':
-            list = self.addparam.get().split(',')
-            p = Parameter(self.algoversion, str(list[0]),list[1],list[2],list[3],list[4])
-            for i in range(0, len(self.params)):
-                if self.params[i].name == p.name:
-                    p = self.params[i]
-            self.params.remove(p)
-            self.refresh_param_listbox()
+    def ChooseE5Folder(self):
+        options = {}
+        options['defaultextension'] = '.txt'
+        options['filetypes'] = [('all files', '.*'), ('text files', '.txt')]
+        options['initialdir'] = 'C:\\'
+        options['initialfile'] = 'permutations.txt'
+        options['title'] = 'Please select the permutations file'
+        filename = askopenfilename(**options)
+        self.paramsfilepath.set(filename)
+
+    # def get_params_into_listbox(self):
+    #     for i in range(0, len(self.params)):
+    #         self.lbparams.insert(str(i), str(self.params[i].name)
+    #                                      + "," + str(self.params[i].min)
+    #                                      + "," + str(self.params[i].max)
+    #                                      + "," + str(self.params[i].change)
+    #                                      + "," + str(self.params[i].default))
+    #
+    # def refresh_param_listbox(self):
+    #     self.lbparams.delete(0, 10)
+    #     self.get_params_into_listbox()
+    #     self.addparam.set('')
+    #
+    # def add_update_param(self):
+    #     #create param from user insert and append to list
+    #     if str(self.addparam.get()) != '':
+    #         list = self.addparam.get().split(',')
+    #         p = Parameter(self.algoversion, str(list[0]),list[1],list[2],list[3],list[4])
+    #         update = False
+    #         for i in range(0, len(self.params)):
+    #             if self.params[i].name == p.name:
+    #                 self.params[i].min = p.min
+    #                 self.params[i].max = p.max
+    #                 self.params[i].change = p.change
+    #                 self.params[i].default = p.default
+    #                 update = True
+    #         if not update:
+    #             self.params.append(p)
+    #         self.refresh_param_listbox()
+    #
+    # def remove_param(self):
+    #     if str(self.addparam.get()) != '':
+    #         list = self.addparam.get().split(',')
+    #         p = Parameter(self.algoversion, str(list[0]),list[1],list[2],list[3],list[4])
+    #         for i in range(0, len(self.params)):
+    #             if self.params[i].name == p.name:
+    #                 p = self.params[i]
+    #         self.params.remove(p)
+    #         self.refresh_param_listbox()
 
     def OnDouble(self, event):
         widget = event.widget
