@@ -2,60 +2,70 @@ import subprocess
 import math
 from algorithm.algorithm import run_algorithm
 from compare.compare import run_compare_on_frame
+from file.fileIO import get_plf_file
 from logic.logic_services.auto_run_video_frame_logic import insert_autorunvideoframe
 from logic.logic_services.auto_run_video_logic import insert_autorunvideo
-from logic.logic_services.video_logic import get_all_gt_files_from_video
 from models.autorunvideo import AutoRunVideo
 from models.autorunvideoframe import AutoRunVideoFrame
 from utils import log
-
+from utils import consts
 __author__ = 'danga_000'
 
 import os
 
-def run_algorithm_then_compare(cycleid, video, algofolder, algoversion, params):
+def run_algorithm_then_compare(gps, cycleid, video):
     # create auto video for insert in database
     autovideo = AutoRunVideo(cycleid,video.videoid, 0, "Not Initialized", 0, 0)
     try:
         # create algorithm files
-        algofile = run_algorithm(cycleid,video,algofolder, algoversion)
+        algoplf = run_algorithm(gps,cycleid,video)
         # get gt file
-        gtfile = get_all_gt_files_from_video(video)
+        saymaplf = get_plf_file(video.path)
+        if saymaplf:
+            saymaplf = video.path + '/' + saymaplf
 
-        if len(algofile) != 0 and len(gtfile) != 0:
+        if algoplf is not None and saymaplf is not None:
             # run compare on video and frame
-            score, avgscore, finalvariancescore = run_compare_algorithem_to_gt(cycleid, video, algofolder, algoversion, algofile, gtfile)
+            score, avgscore, finalvariancescore = run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf)
             # save average in auto_run_video
-            autovideo.averagescore = avgscore
-            autovideo.variancescore = finalvariancescore
-            autovideo.finalscore = score
-            autovideo.avexception = "good"
-        elif len(algofile) == 0:
+            if finalvariancescore == 0:
+                autovideo.avexception = "compare error"
+                log.log_information(autovideo.avexception)
+                print("*********** compare error ********")
+            else:
+                autovideo.averagescore = avgscore
+                autovideo.variancescore = finalvariancescore
+                autovideo.finalscore = score
+                autovideo.avexception = "good"
+                log.log_information(autovideo.avexception)
+        elif algoplf is None:
             # If not same frame count return exception
-            autovideo.averagescore = 0
             autovideo.avexception = "No algorithm file"
-        elif len(gtfile) == 0:
-            autovideo.averagescore = 0
+            log.log_information(autovideo.avexception)
+            print("********** No algorithm file ***********")
+        elif saymaplf is None:
             autovideo.avexception = "No .plf file"
+            log.log_information(autovideo.avexception)
+            print("************* No .plf file ************")
     except IOError as e:
         autovideo.averagescore = 0
-        videoerror = "Failed to test Video: " + str(video.videoid) + " from cycle: " + str(cycleid) + " Error: " \
-                     + e.args
+        videoerror = str(e.args).replace("'", "")
         shortenederror = (videoerror[:600] + '..') if len(videoerror) > 600 else videoerror
         autovideo.avexception = shortenederror
-        log.log_errors(videoerror)
+        log.log_information(videoerror)
     # return auto_run
     insert_autorunvideo(autovideo)
     return autovideo
 
 
-def run_compare_algorithem_to_gt(cycleid, video, algofolder, algoversion, plffile, gtfile):
+def run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf):
 
-    comparefile = video.path + '/' + algoversion + '/' + str(cycleid) + '/' + 'compare.txt'
+    comparefile = gps[consts.outputfolder].val + gps[consts.algoversion].val + '/' + str(cycleid) + '/' \
+                  + video.videoname + '/' + 'compare.txt'
     #Algo_Path Countour_Path First_Frame_Path -bmp Output_Path
-    comparecommand = algofolder + 'PlfComapreCA.exe ' \
-    + video.path + '/' + algoversion + '/'  + str(cycleid) + '/'  + plffile + ' ' \
-    + video.path + '/' + gtfile + ' ' \
+    comparecommand = gps[consts.algofolder].val + 'PlfComapreCA.exe ' \
+    + algoplf + ' ' \
+    + saymaplf + ' ' \
     + comparefile
     os.system(comparecommand)
 
@@ -87,19 +97,22 @@ def run_compare_algorithem_to_gt(cycleid, video, algofolder, algoversion, plffil
                 avgscore = avgscore + score
                 variance += score * score
                 i += 1
-            except IOError as e:
+            except (IndexError, IOError) as e:
                 frameerror = "Failed to test frame: " + str(linecounter) + " For Video: " + str(video.videoname) + \
-                             " from cycle: " + str(cycleid) + " Error: " + e.args
+                             " from cycle: " + str(cycleid) + " Error: " + str(e.args).replace("'", "")
                 shortenederror = (frameerror[:600] + '..') if len(frameerror) > 600 else frameerror
                 autoframe = AutoRunVideoFrame(cycleid, video.videoid, linecounter, 0, shortenederror)
                 insert_autorunvideoframe(autoframe)
-                log.log_errors(frameerror)
+                log.log_information(frameerror)
 
     # TODO save to database
-    avgscore = avgscore/linecounter
-    variantavgscore = variance / linecounter
-    # TODO save to database
-    finalvariancescore = math.sqrt(variantavgscore - avgscore * avgscore)
+    if linecounter != 0:
+        avgscore = avgscore/linecounter
+        variantavgscore = variance / linecounter
+        # TODO save to database
+        finalvariancescore = math.sqrt(variantavgscore - avgscore * avgscore)
 
-    return (avgscore - finalvariancescore), avgscore, finalvariancescore
+        return (avgscore - finalvariancescore), avgscore, finalvariancescore
+    else:
+        return 0,0,0
 

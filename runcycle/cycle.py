@@ -6,6 +6,7 @@ from algorithm.algorithm import create_params_output_path
 
 from algorithm.prepare_algorithm import run_algorithm_then_compare
 from file import fileIO
+from logic.logic_services import auto_run_video_logic
 from logic.logic_services import auto_run_logic
 from logic.logic_services.general_param_logic import insert_update_general_param
 from logic.logic_services.parameter_logic import insert_param
@@ -15,16 +16,20 @@ from logic.logic_services import general_param_logic
 from models.generalparam import GeneralParam
 from models.parameter import Parameter
 from utils import log
+from utils import consts
 
 
 __author__ = 'danga_000'
 
 # range of floats
-def frange(min, max, jump):
+def frange(min, max, jump, default):
     paramlist = []
-    while min < max:
-        paramlist.append(min)
-        min += jump
+    if jump == 0:
+        paramlist.append(str(default))
+    else:
+        while min < max:
+            paramlist.append(str(min))
+            min += jump
     return paramlist
 
 
@@ -36,7 +41,7 @@ def get_params_list(optimize,paramsdb):
     # create a list of all parameter values to iterate over for each parameter
     for param in paramsdb:
         if optimize:
-            paramlist = frange(param.min, param.max+1, param.change)
+            paramlist = frange(int(param.min), int(param.max)+1, int(param.change), int(param.default))
             paramlists.append(paramlist)
         else:
             paramtuple = paramtuple + (param.default,)
@@ -46,36 +51,42 @@ def get_params_list(optimize,paramsdb):
         return [paramtuple]
 
 
-def set_user_info(app, optimize,algoversion,algofolder,videofolder, paramspath, cycleid):
+def set_user_info(optimize,algoversion,mainfolder):
     #set Algorithm output and version
-    app.lbreport.insert(END,"Saving folders to database...")
+    print("Saving folders to database...")
+    gps = []
     gpalgoversion = GeneralParam('AlgorithmVersion', str(algoversion))
-    gpalgofolder = GeneralParam('AlgorithmFolder', str(algofolder))
-    algorunoptimization = GeneralParam('RunOptimization', str(optimize))
-    videofolder = GeneralParam('VideoFolder', str(videofolder))
-    paramsfolder = GeneralParam('ParamsFolder', str(paramspath))
+    gpalgofolder = GeneralParam('AlgorithmFolder', str(mainfolder + '/' + consts.algorithem + '/'))
+    optimization = False
+    if optimize == '1':
+        optimization = True
+    algorunoptimization = GeneralParam('RunOptimization', optimization)
+    videofolder = GeneralParam('VideoFolder', str(mainfolder + '/' + consts.videos + '/'))
+    outputfolder = GeneralParam('OutputFolder', str(mainfolder + '/' + consts.output + '/'))
+    paramsfolder = GeneralParam('ParamsFolder', str(mainfolder + '/' + consts.paramsxml))
     insert_update_general_param(gpalgofolder)
     insert_update_general_param(gpalgoversion)
     insert_update_general_param(algorunoptimization)
     insert_update_general_param(videofolder)
+    insert_update_general_param(outputfolder)
     insert_update_general_param(paramsfolder)
-    # Remove all params
-    # TODO put param in database with cycleid for later reference
-    # dbparams = get_params_by_algo_version(algoversion)
-    # for dbparam in dbparams:
-    #     delete_param_by_name(algoversion, dbparam.name)
-    # Insert params from file
-    app.lbreport.insert(END,"Saving params to database...")
-    return getParamsFromFile(cycleid, algoversion, paramspath)
+    gps.append(gpalgoversion)
+    gps.append(gpalgofolder)
+    gps.append(algorunoptimization)
+    gps.append(videofolder)
+    gps.append(outputfolder)
+    gps.append(paramsfolder)
+    createfolders(gps)
+    return gps
 
-def getParamsFromFile(cycleid, algoversion, paramspath):
+def getParamsFromFile(gps, cycleid):
     #  get params from path to params
     parameters = []
-    with open(paramspath,'r') as f:
+    with open(gps[consts.paramsfilepath].val,'r') as f:
         for x in f:
             row = x.split(',')
             if len(row) == 5:
-                param = Parameter(cycleid, algoversion,row[0],row[1],row[2],row[3],row[4].replace('\n',''))
+                param = Parameter(cycleid, gps[consts.algoversion].val,row[0],row[1],row[2],row[3],row[4].replace('\n',''))
                 parameters.append(param)
                 insert_param(param)
     return parameters
@@ -87,50 +98,72 @@ def deleteContent(fName):
         pass
 
 
-def get_general_params():
-    gps = general_param_logic.get_general_params()
+def get_starting_general_params():
+    dbgps = general_param_logic.get_general_params()
+    gps = []
     default = 'Set Folder Please'
-    algoversion = gps.get('AlgorithmVersion', default)
-    algofolder = gps.get('AlgorithmFolder', default)
-    algorunoptimization = gps.get('RunOptimization', '0')
-    if algorunoptimization == '1':
-        algorunoptimization = True
+    algoversion = dbgps.get(consts.algoversionname, default)
+    algofolder = dbgps.get(consts.algofoldername, default)
+    optimization = dbgps.get(consts.optimizationname, '0')
+    if optimization == '1':
+        optimization = True
     else:
-        algorunoptimization = False
-    videospath = gps.get('VideoFolder', default)
-    paramspath = gps.get('ParamsFolder', default)
-    return algoversion, algofolder, algorunoptimization, videospath, paramspath
+        optimization = False
+    videospath = dbgps.get(consts.videofoldername, default)
+    outputpath = dbgps.get(consts.outputfoldername, default)
+    paramspath = dbgps.get(consts.paramsfilepathname, default)
+
+    gps.append(algoversion)
+    gps.append(algofolder)
+    gps.append(optimization)
+    gps.append(videospath)
+    gps.append(outputpath)
+    gps.append(paramspath)
+
+    return gps
 
 
-def save_avgscore_to_report(algoversion, avgscore, cycleid, videospath):
-    path = os.path.abspath(videospath + "/" + algoversion + "/" + str(cycleid) + "/")
+def save_avgscore_to_report(gps, avgscore, cycleid):
+    path = os.path.abspath(gps[consts.outputfolder].val + gps[consts.algoversion].val + "/" + str(cycleid) + "/")
     if not os.path.exists(path):
         os.makedirs(path)
     file = fileIO.get_file_by_name_write(path + "\\" + "cycle-" + str(cycleid) + "-score.txt")
     file.write(str(avgscore))
 
 
-def run_video_cycle(app, algoversion, algofolder, cycleid, numofvideos,permutations, params, score, startdate, videos, videospath):
+def createfolders(gps):
+    path = gps[consts.algofolder].val
+    if not os.path.exists(path):
+        os.makedirs(path)
+    path = gps[consts.videofolder].val
+    if not os.path.exists(path):
+        os.makedirs(path)
+    path = gps[consts.outputfolder].val
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
+
+def run_video_cycle(gps, cycleid, numofvideos,permutations, startdate, videos):
     videocount = numofvideos
     i=2
     avgscore = 0
     for video in videos:
         i = i+1
-        app.lblstatus['text'] = "Testing " + video.videoname
-        app.lbreport.insert(END, "Testing " + video.videoname)
+        print("Testing " + video.videoname)
         # run ffmpeg on video and run_compare
         try:
             #     ffmpeg_on_video(video)
-            autovideo = run_algorithm_then_compare(cycleid, video,algofolder,algoversion, params)
+            autovideo = run_algorithm_then_compare(gps, cycleid, video)
             if autovideo.averagescore != 0:
                 avgscore = avgscore + autovideo.averagescore
-                app.lbreport.insert(END,"Score: " + str(autovideo.averagescore))
+                print("Score: " + str(autovideo.averagescore))
             else:
                 videocount -= 1
         except IOError:
-            log.log_errors(IOError)
+            log.log_information(IOError)
             videocount -= 1
-            app.lbreport.insert(END,"Error in video: " + video.videoname)
+            print("Error in video: " + video.videoname)
     # Save average score
     if videocount != 0:
         avgscore = avgscore / videocount
@@ -144,51 +177,48 @@ def run_video_cycle(app, algoversion, algofolder, cycleid, numofvideos,permutati
     for permutation in permutations:
         stringpermutation += permutation + ','
     stringpermutation = stringpermutation[:-1]
-    ar = AutoRun(cycleid, algoversion, stringpermutation, startdate, datetime.datetime.now(), avgscore)
+    ar = AutoRun(cycleid, gps[consts.algoversion].val, stringpermutation, startdate, datetime.datetime.now(), avgscore)
     # Save autorun info
     auto_run_logic.insert_autorun(ar)
-    save_avgscore_to_report(algoversion, avgscore, cycleid, videospath)
-    app.lbreport.insert(END,"**** Finished Cycle " + str(cycleid) + " Score: " + str(avgscore) + " ****")
+    save_avgscore_to_report(gps, avgscore, cycleid)
+    print("**** Finished Cycle " + str(cycleid) + " Score: " + str(avgscore) + " ****")
 
 
-def run_cycle(app, optimize,algoversion,algofolder,videofolder,paramspath):
-    app.lblstatus['text'] = "Setting params..."
-
+def run_cycle(optimize,algoversion,mainfolder):
     # get new cycle_id
-    cycleid = auto_run_logic.get_new_cycle_id()
-    app.lbreport.insert(END, "Starting Run Cycle " + str(cycleid))
-    app.lbreport.insert(END,"Setting params...")
-    pemutationparams = set_user_info(app,optimize,algoversion,algofolder,videofolder,paramspath,cycleid)
-    # Get general_params
-    algoversion,algofolder, algorunoptimization, videospath, paramspath = get_general_params()
-    # get existing videos automatically from their folder and insert to database if needed
-    videos = insert_update_videos_from_path(videospath)
+    cycleid = auto_run_video_logic.get_new_cycle_id()
+    print("Starting Run Cycle " + str(cycleid))
+    print("Setting params...")
+    gps = set_user_info(optimize,algoversion,mainfolder)
+    # get existing videos automatically from their folder and aws and insert to database if needed
+    videos = insert_update_videos_from_path(gps[consts.videofolder].val)
     numofvideos = len(videos)
-    paramlists = get_params_list(algorunoptimization,pemutationparams)
-    if algorunoptimization:
+    permutationparams = getParamsFromFile(gps, cycleid)
+    paramlists = get_params_list(gps[consts.optimization].val,permutationparams)
+    if gps[consts.optimization].val:
         permutationlist = list(itertools.product(*paramlists))
     else:
         permutationlist = paramlists
     # ----cycle through params------
     # Empty params file and refill it
-    paramsfile = create_params_output_path(algofolder, cycleid, algoversion) + '/params.xml'
+    paramsfile = create_params_output_path(gps, cycleid) + '/' + consts.paramsxml
 
     for i in range(0, len(permutationlist)):
         # fix params file
         deleteContent(paramsfile)
         with open(paramsfile, "a") as myfile:
             myfile.write("<UniformBackgroundPrm>")
-        for j in range(0, len(pemutationparams)):
+        for j in range(0, len(permutationparams)):
             with open(paramsfile, "a") as myfile:
-                myfile.write('<' + pemutationparams[j].name +'>' + str(permutationlist[i][j]) + '</' + pemutationparams[j].name + '>')
+                myfile.write('<' + permutationparams[j].name +'>' + str(permutationlist[i][j]) + '</' + permutationparams[j].name + '>')
         with open(paramsfile, "a") as myfile:
             myfile.write("</UniformBackgroundPrm>")
         startdate= datetime.datetime.now()
         # run cycle on all videos:
         score = 0
-        app.lbreport.insert(END,"running " + str(i) + " permutation: " + str(permutationlist[i]))
-        run_video_cycle(app, algoversion,algofolder, cycleid, numofvideos,permutationlist[i], pemutationparams, score, startdate, videos, videospath)
+        print("running " + str(i) + " permutation: " + str(permutationlist[i]))
+        run_video_cycle(gps, cycleid, numofvideos, permutationlist[i], startdate, videos)
         cycleid += 1
-        paramsfile = create_params_output_path(algofolder, cycleid, algoversion) + '/params.xml'
+        paramsfile = create_params_output_path(gps, cycleid) + '/' + consts.paramsxml
 
-    app.lbreport.insert(END,"***********FINISHED**************")
+    print("***********FINISHED**************")

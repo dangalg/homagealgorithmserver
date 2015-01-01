@@ -14,6 +14,13 @@ from data import db
 #         autorunvideo = AutoRunVideo(row[0],row[1],row[2],row[3])
 #         return autorunvideo
 
+def get_top_cycle_id():
+    query = "SELECT * FROM AutoRunVideo ORDER BY cycle_id DESC LIMIT 1"
+    cursor = db.get_cursor_from_query(query)
+    row = cursor.fetchone()
+    if row:
+        autorunvideo = AutoRunVideo(row[0],row[1],row[2],row[3],row[4],row[5])
+        return autorunvideo.cycleid
 
 def insert_autorunvideo(autorunvideo):
     # Prepare SQL query to INSERT a record into the database.

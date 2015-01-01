@@ -39,15 +39,31 @@ def list_frames_by_path(path):
             frames.append(file)
     return frames
 
-def list_gt_frames_by_path(path):
-    frames = []
+def get_plf_file(path):
     for file in os.listdir(os.path.abspath(path)):
         if file.endswith(".plf") and not file.endswith("-h.plf"): # to get specific files
-            frames.append(file)
+            return file
         # if file.endswith(".jpg"): # to get specific files
         #     frames.append(file)
         # if file.endswith(".png"): # to get specific files
         #     frames.append(file)
         # if file.endswith(".bmp"): # to get specific files
         #     frames.append(file)
-    return frames[0]
+    return None
+
+
+# def get_algo_plf_file(path):
+#     frames = []
+#     for file in os.listdir(os.path.abspath(path)):
+#         if file.endswith(".plf") and not file.endswith("-h.plf"): # to get specific files
+#             frames.append(file)
+#         # if file.endswith(".jpg"): # to get specific files
+#         #     frames.append(file)
+#         # if file.endswith(".png"): # to get specific files
+#         #     frames.append(file)
+#         # if file.endswith(".bmp"): # to get specific files
+#         #     frames.append(file)
+#         if len(frames) == 0:
+#             return None
+#         else:
+#             return frames[0]

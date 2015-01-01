@@ -1,6 +1,7 @@
 import os
+from data import aws_helper
 from data.data_services import video_db
-from file.fileIO import list_videos_by_path, list_frames_by_path, list_gt_frames_by_path
+from file.fileIO import list_videos_by_path, list_frames_by_path, get_plf_file
 from models.video import Video
 from utils import log
 from file import fileIO
@@ -11,13 +12,13 @@ from file import ffmpeg
 
 def log_video_error(message, video=None):
     if video:
-        log.log_errors(message + str(video.videoid) + "name: " +
+        log.log_information(message + str(video.videoid) + "name: " +
                            video.videoname + "num of frames: " +
                            str(video.numofframes) + "path: " +
                            video.path + "ffmpeg: " +
                            str(video.ffmpeg) )
     else:
-        log.log_errors(message + " Video info not available")
+        log.log_information(message + " Video info not available")
 
 def get_new_video_id():
     topid = video_db.get_top_video_id()
@@ -37,17 +38,29 @@ def get_all_frames_from_video(video):
         #         frames.append(frame)
     return frames
 
-def get_all_gt_files_from_video(video):
-    testframes = []
-    GTpath = get_GT_path(video)
-    if os.path.exists(GTpath):
-        testframes = list_gt_frames_by_path(GTpath)
-        # testpath = get_GT_path(video) + "/" + "image" + "-"
-        # for i in range(0,video.numofframes):
-        #     frame = testpath + '{0:02}'.format(i) + ".bmp"
-        #     if os.path.exists(frame):
-        #         testframes.append(frame)
-    return testframes
+# def get_gt_file(video):
+#     GTpath = get_GT_path(video)
+#     if os.path.exists(GTpath):
+#         return get_plf_file(GTpath)
+#         testframes = get_plf_file(GTpath)
+#         # testpath = get_GT_path(video) + "/" + "image" + "-"
+#         # for i in range(0,video.numofframes):
+#         #     frame = testpath + '{0:02}'.format(i) + ".bmp"
+#         #     if os.path.exists(frame):
+#         #         testframes.append(frame)
+#     return testframes
+
+# def get_all_gt_files_from_video(video):
+#     testframes = []
+#     GTpath = get_GT_path(video)
+#     if os.path.exists(GTpath):
+#         testframes = get_algo_plf_file(GTpath)
+#         # testpath = get_GT_path(video) + "/" + "image" + "-"
+#         # for i in range(0,video.numofframes):
+#         #     frame = testpath + '{0:02}'.format(i) + ".bmp"
+#         #     if os.path.exists(frame):
+#         #         testframes.append(frame)
+#     return testframes
 
 def escape_backslash(name):
     # name = os.path.abspath(name)
@@ -100,7 +113,7 @@ def get_GT_path(video):
     return video.path #video.videoname.split('.')[0]
 
 def insert_update_videos_from_path(path):
-    videos = list_videos_by_path(path)
+    videos = comparevideosfroms3tolocalandadjust(path)
     newid = get_new_video_id()
     vid = None
     videosinfolder = []
@@ -120,23 +133,42 @@ def insert_update_videos_from_path(path):
                 video_db.update_video_by_id(updvid.videoid,vid)
                 vid.videoid = updvid.videoid
             videosinfolder.append(vid)
-        except IOError:
-            log_video_error("insert_update_videos_from_path error in video named {0}: ".format(v), vid)
+        except IOError as e:
+            log.log_information("insert_update_videos_from_path error in video: " + vid.videoname + " " + str(e.args).replace("'",""))
     return videosinfolder
 
-def insert_update_video(video):
-    newid = get_new_video_id()
-    updvid = get_video_by_name(video.videoname)
-    try:
-        framenum = get_framnum_from_path(video) # Frames must be in a folder with the same name as the video
-        video.videoid = newid
-        video.numofframes = framenum
-        if not updvid:
-            video_db.insert_video(video)
-        else:
-            video_db.update_video_by_id(updvid.videoid,video)
-    except IOError:
-            log_video_error("insert_update_videos_from_path error in video named {0}: ".format(video.videoname), video)
+def comparevideosfroms3tolocalandadjust(localpath):
+    videos =[]
+    localvideos = list_videos_by_path(localpath)
+    # create path to video folder without video folder name because it is added automatically
+    # twice because first it removes / then splits Videos apart
+    head, tail = os.path.split(localpath)
+    directory, videoname = os.path.split(head)
+    s3videos = aws_helper.listfolderfroms3('homage-automation', 'Videos/')
 
-def delete_video_by_id(id):
-    video_db.delete_video_by_id(id)
+    for s3vid in s3videos:
+        videofound = False
+        for vid in localvideos:
+            if vid == s3vid:
+                videofound = True
+        if not videofound:
+            pass #TODO DEBUG
+            # aws_helper.downloadfolderfroms3('homage-automation', 'Videos/' + s3vid, directory + '/')
+    return localvideos #s3videos
+
+# def insert_update_video(video):
+#     newid = get_new_video_id()
+#     updvid = get_video_by_name(video.videoname)
+#     try:
+#         framenum = get_framnum_from_path(video) # Frames must be in a folder with the same name as the video
+#         video.videoid = newid
+#         video.numofframes = framenum
+#         if not updvid:
+#             video_db.insert_video(video)
+#         else:
+#             video_db.update_video_by_id(updvid.videoid,video)
+#     except IOError:
+#             log_video_error("insert_update_videos_from_path error in video named {0}: ".format(video.videoname), video)
+#
+# def delete_video_by_id(id):
+#     video_db.delete_video_by_id(id)

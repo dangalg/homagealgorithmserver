@@ -16,3 +16,10 @@ def insert_autorunvideo(autorunvideo):
 
 # def delete_autorunvideo_by_cycleidvideoid(autorunvideo):
 #     auto_run_video_db.delete_autorunvideo_by_cycleidvideoid(autorunvideo)
+
+def get_new_cycle_id():
+    topcycleid = auto_run_video_db.get_top_cycle_id()
+    cycleid = 1
+    if topcycleid:
+        cycleid = topcycleid + 1
+    return cycleid
