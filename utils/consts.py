@@ -4,23 +4,36 @@ __author__ = 'dangalg'
 videos = 'Videos'
 algorithem = 'Algorithem'
 output = 'Output'
+crashoutput = 'CrashOutput'
+crashrunvideos = 'CrashRunVideos'
 
 # general params names
+mainfoldername = 'MainFolder'
 algoversionname = 'AlgorithmVersion'
 algofoldername = 'AlgorithmFolder'
 optimizationname = 'RunOptimization'
+updatedbname = 'Updatedb'
 videofoldername = 'VideoFolder'
 outputfoldername = 'OutputFolder'
+crashoutputfoldername = 'CrashOutputFolder'
 paramsfilepathname = 'ParamsFilePath'
+crashrunvideofoldername = 'CrashRunVideoFolder'
+crashrunname = 'CrashRun'
 
 # General Params
-algoversion = 0
-algofolder = 1
-optimization = 2
-videofolder = 3
-outputfolder = 4
-paramsfilepath = 5
+# mainfolder = 0
+# algoversion = 1
+# algofolder = 2
+# optimization = 3
+# videofolder = 4
+# outputfolder = 5
+# paramsfilepath = 6
+# crashrunvideofolder = 7
+# crashrun = 8
 
+# AWS names
+awsvideos = 'Videos/'
+awscrashrunvideos = 'CrashRunVideos/'
 
 # file names
 paramsxml = 'params.xml'

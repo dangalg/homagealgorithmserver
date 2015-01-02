@@ -1,24 +1,24 @@
 import os
 from data import aws_helper
 from data.data_services import video_db
-from file.fileIO import list_videos_by_path, list_frames_by_path, get_plf_file
+from file.fileIO import list_videos_by_path, list_frames_by_path
 from models.video import Video
 from utils import log
-from file import fileIO
+from utils import consts
 
 __author__ = 'danga_000'
 
 from file import ffmpeg
 
-def log_video_error(message, video=None):
-    if video:
-        log.log_information(message + str(video.videoid) + "name: " +
-                           video.videoname + "num of frames: " +
-                           str(video.numofframes) + "path: " +
-                           video.path + "ffmpeg: " +
-                           str(video.ffmpeg) )
-    else:
-        log.log_information(message + " Video info not available")
+# def log_video_error(message, video=None):
+#     if video:
+#         log.log_information(message + str(video.videoid) + "name: " +
+#                            video.videoname + "num of frames: " +
+#                            str(video.numofframes) + "path: " +
+#                            video.path + "ffmpeg: " +
+#                            str(video.ffmpeg) )
+#     else:
+#         log.log_information(message + " Video info not available")
 
 def get_new_video_id():
     topid = video_db.get_top_video_id()
@@ -89,14 +89,14 @@ def get_video_by_name(name):
         video.path = escape_backslash(video.path)
         return video
 
-def ffmpeg_on_video(video):
-    if video.ffmpeg == 0:
-        try:
-            ffmpeg.ffmpeg_on_path(video.path)
-            video.ffmpeg = 1
-            update_ffmpeg(video)
-        except IOError:
-            log_video_error("ffmpeg_on_video error: ", video)
+# def ffmpeg_on_video(video):
+#     if video.ffmpeg == 0:
+#         try:
+#             ffmpeg.ffmpeg_on_path(video.path)
+#             video.ffmpeg = 1
+#             update_ffmpeg(video)
+#         except IOError:
+#             log_video_error("ffmpeg_on_video error: ", video)
 
 def update_ffmpeg(video):
     video.ffmpeg = 1
@@ -112,15 +112,18 @@ def get_frame_path(video):
 def get_GT_path(video):
     return video.path #video.videoname.split('.')[0]
 
-def insert_update_videos_from_path(path):
-    videos = comparevideosfroms3tolocalandadjust(path)
+def insert_update_videos_from_path(gps):
+    videos = comparevideosfroms3tolocalandadjust(gps)
     newid = get_new_video_id()
     vid = None
     videosinfolder = []
     for v in videos:
         try:
             updvid = get_video_by_name(v)
-            vid = Video(newid, v, 0 , path + v, 0)
+            videosfolder = gps[consts.videofoldername].val
+            if gps[consts.crashrunname].val:
+                videosfolder = gps[consts.crashrunvideofoldername].val
+            vid = Video(newid, v, 0 , videosfolder + v, 0)
             framenum = get_framnum_from_path(vid)
             vid.numofframes = framenum # Frames must be in a folder with the same name as the video
             # Example: videoname path = c:\test.avi frames path = c:\test\
@@ -137,14 +140,18 @@ def insert_update_videos_from_path(path):
             log.log_information("insert_update_videos_from_path error in video: " + vid.videoname + " " + str(e.args).replace("'",""))
     return videosinfolder
 
-def comparevideosfroms3tolocalandadjust(localpath):
-    videos =[]
-    localvideos = list_videos_by_path(localpath)
+def comparevideosfroms3tolocalandadjust(gps):
+
+    if gps[consts.crashrunname].val:
+        localvideos = list_videos_by_path(gps[consts.crashrunvideofoldername].val)
+    else:
+        localvideos = list_videos_by_path(gps[consts.videofoldername].val)
     # create path to video folder without video folder name because it is added automatically
-    # twice because first it removes / then splits Videos apart
-    head, tail = os.path.split(localpath)
-    directory, videoname = os.path.split(head)
-    s3videos = aws_helper.listfolderfroms3('homage-automation', 'Videos/')
+    directory = gps[consts.mainfoldername].val
+    awsvideofolder = consts.awsvideos
+    if gps[consts.crashrunname].val:
+        awsvideofolder = consts.awscrashrunvideos
+    s3videos = aws_helper.listfolderfroms3('homage-automation', awsvideofolder)
 
     for s3vid in s3videos:
         videofound = False
@@ -152,9 +159,9 @@ def comparevideosfroms3tolocalandadjust(localpath):
             if vid == s3vid:
                 videofound = True
         if not videofound:
-            pass #TODO DEBUG
-            # aws_helper.downloadfolderfroms3('homage-automation', 'Videos/' + s3vid, directory + '/')
-    return localvideos #s3videos
+            print("Downloading: " + str(s3vid))
+            aws_helper.downloadfolderfroms3('homage-automation', awsvideofolder + s3vid, directory + '/')
+    return s3videos  #localvideos
 
 # def insert_update_video(video):
 #     newid = get_new_video_id()

@@ -33,9 +33,7 @@ def insert_autorunvideoframe(autorunvideoframe):
 #                                                                                    autorunvideoframe.frameid)
 #     db.dml(query)
 #
-# def delete_autorunvideoframe_by_cycleidvideoidframeid(autorunvideoframe):
-#     # Prepare SQL query to UPDATE required records
-#     query = "DELETE FROM AutoRunVideoFrame WHERE cycle_id = {0} AND video_id = {1} AND frame_id = {2}".format(autorunvideoframe.cycleid,
-#                                                                                                               autorunvideoframe.videoid,
-#                                                                                                               autorunvideoframe.frameid)
-#     db.dml(query)
+def delete_autorunvideoframes_by_cycleidvideoid(cycleid, videoid):
+    # Prepare SQL query to UPDATE required records
+    query = "DELETE FROM AutoRunVideoFrame WHERE cycle_id = {0} AND video_id = {1}".format(cycleid,videoid)
+    db.dml(query)
