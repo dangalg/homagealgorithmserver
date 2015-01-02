@@ -26,9 +26,8 @@ def run_algorithm_then_compare(run, gps, cycleid, video):
         autovideo = get_autorunvideo_by_cycleidvideoid(cycleid,video.videoid)
         if autovideo:
             foundautovideo = True
-            if autovideo.avexception != "good" and not gps[consts.updatedbname].val:
-                crashcount += 1
-        if gps[consts.updatedbname].val or not autovideo:
+        if gps[consts.updatedbname].val or not autovideo or autovideo.avexception != "good" \
+                or any(video.videoname in s for s in gps[consts.remakelistname].val):
             # create auto video for insert in database
             autovideo = AutoRunVideo(cycleid,video.videoid, 0, "Not Initialized", 0, 0, 'None')
             try:

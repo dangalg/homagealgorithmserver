@@ -158,7 +158,7 @@ def comparevideosfroms3tolocalandadjust(gps):
         for vid in localvideos:
             if vid == s3vid:
                 videofound = True
-        if not videofound:
+        if not videofound or any(s3vid in s for s in gps[consts.remakelistname].val):
             print("Downloading: " + str(s3vid))
             aws_helper.downloadfolderfroms3('homage-automation', awsvideofolder + s3vid, directory + '/')
     return s3videos  #localvideos

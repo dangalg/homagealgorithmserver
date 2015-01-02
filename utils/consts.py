@@ -18,6 +18,7 @@ outputfoldername = 'OutputFolder'
 crashoutputfoldername = 'CrashOutputFolder'
 paramsfilepathname = 'ParamsFilePath'
 crashrunvideofoldername = 'CrashRunVideoFolder'
+remakelistname = 'RemakeList'
 crashrunname = 'CrashRun'
 
 # General Params

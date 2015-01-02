@@ -53,7 +53,7 @@ def get_params_list(optimize,paramsdb):
         return [paramtuple]
 
 
-def set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder):
+def set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder, remakelist):
     #set Algorithm output and version
     print("Saving folders to database...")
     gps = {}
@@ -80,6 +80,7 @@ def set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder):
     crashoutputfolder = GeneralParam(consts.crashoutputfoldername, str(mainfolder + '/' + consts.crashoutput + '/'))
     mainfolderparam = GeneralParam(consts.mainfoldername, str(mainfolder + '/'))
     paramsfolder = GeneralParam(consts.paramsfilepathname, str(mainfolder + '/' + consts.paramsxml))
+    remakelistparam = GeneralParam(consts.remakelistname, remakelist)
     insert_update_general_param(gpalgofolder)
     insert_update_general_param(gpalgoversion)
     insert_update_general_param(algorunoptimization)
@@ -91,6 +92,7 @@ def set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder):
     insert_update_general_param(mainfolderparam)
     insert_update_general_param(crashfolderparam)
     insert_update_general_param(updatedbparam)
+    insert_update_general_param(remakelistparam)
 
     gps[consts.mainfoldername] = mainfolderparam
     gps[consts.algoversionname] = gpalgoversion
@@ -103,6 +105,7 @@ def set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder):
     gps[consts.crashrunname] = crashrunparam
     gps[consts.crashrunvideofoldername] = crashfolderparam
     gps[consts.updatedbname] = updatedbparam
+    gps[consts.remakelistname] = remakelistparam
     createfolders(gps)
     return gps
 
@@ -228,10 +231,10 @@ def get_cycle_id(crashrun, gps, params):
     return cycleid, run
 
 
-def run_cycle(crashrun, optimize, updatedb, algoversion, mainfolder):
+def run_cycle(crashrun, optimize, updatedb, algoversion, mainfolder, remakelist):
 
     print("Setting params...")
-    gps = set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder)
+    gps = set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder,remakelist)
     # get existing videos automatically from their folder and aws and insert to database if needed
     videos = insert_update_videos_from_path(gps)
     numofvideos = len(videos)
