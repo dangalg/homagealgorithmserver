@@ -17,6 +17,7 @@ from utils import consts
 __author__ = 'danga_000'
 
 import os
+from subprocess import Popen, PIPE
 
 def run_algorithm_then_compare(run, gps, cycleid, video):
     crashcount = 0
@@ -32,20 +33,20 @@ def run_algorithm_then_compare(run, gps, cycleid, video):
             autovideo = AutoRunVideo(cycleid,video.videoid, 0, "Not Initialized", 0, 0, 'None')
             try:
                 # create algorithm files
-                algoplf, awsplf = run_algorithm(gps,cycleid,video,run.params)
+                algoplf, awsplf, result= run_algorithm(gps,cycleid,video)
                 # get gt file
                 saymaplf = get_plf_file(video.path)
                 if saymaplf:
                     saymaplf = video.path + '/' + saymaplf
 
-                if algoplf and saymaplf:
+                if algoplf and saymaplf and result == "good":
                     # run compare on video and frame
-                    score, avgscore, finalvariancescore = run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf)
+                    score, avgscore, finalvariancescore, result = run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf)
                     # save average in auto_run_video
-                    if finalvariancescore == 0:
-                        autovideo.avexception = "compare error"
+                    if finalvariancescore == 0 or result != "good":
+                        autovideo.avexception = "compare error: " + str(result).replace("'","")
                         log.log_information(gps, autovideo.avexception)
-                        print("*********** compare error ********")
+                        print("*********** compare error ********\n" + str(result).replace("'",""))
                         crashcount += 1
                     else: # Success
                         autovideo.averagescore = avgscore
@@ -65,6 +66,11 @@ def run_algorithm_then_compare(run, gps, cycleid, video):
                     log.log_information(gps, autovideo.avexception)
                     print("************* No .plf file ************")
                     crashcount += 1
+                elif result != "good":
+                    autovideo.avexception = result.replace("'","")
+                    log.log_information(gps, autovideo.avexception)
+                    print(result.replace("'",""))
+                    crashcount += 1
             except IOError as e:
                 videoerror = str(e.args).replace("'", "")
                 shortenederror = (videoerror[:600] + '..') if len(videoerror) > 600 else videoerror
@@ -82,11 +88,11 @@ def run_algorithm_then_compare(run, gps, cycleid, video):
         if crashrunvideo:
             foundcrashvideo = True
         crashrunvideo = CrashRunVideo(cycleid, video.videoid, "Not Initialized")
-        algoplf, awsplf = run_algorithm(gps,cycleid,video, run.params)
-        if algoplf:
+        algoplf, awsplf, result = run_algorithm(gps,cycleid,video)
+        if algoplf and result == "good":
             crashrunvideo.crvexception = 'good'
         else:
-            crashrunvideo.crvexception = 'Algorithem crashed'
+            crashrunvideo.crvexception = 'Algorithem malfunctioned: ' + str(result).replace("'","")
             crashcount += 1
         if foundcrashvideo:
             update_crashrunvideo(crashrunvideo)
@@ -105,6 +111,15 @@ def run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf):
     + saymaplf + ' ' \
     + comparefile
     os.system(comparecommand)
+
+    cmd = comparecommand
+    p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
+    stdout, stderr = p.communicate()
+    print("message: " + str(stdout))
+    print("error: " + str(stderr))
+    result = "good"
+    if "failed" in str(stderr):
+        result = str(stderr)
 
     avgscore = 0
     linecounter = 0
@@ -146,7 +161,7 @@ def run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf):
         variantavgscore = variance / linecounter
         finalvariancescore = math.sqrt(variantavgscore - avgscore * avgscore)
 
-        return (avgscore - finalvariancescore), avgscore, finalvariancescore
+        return (avgscore - finalvariancescore), avgscore, finalvariancescore, result
     else:
-        return 0,0,0
+        return 0,0,0, result
 

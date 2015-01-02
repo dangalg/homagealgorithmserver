@@ -1,12 +1,11 @@
 import os
 import subprocess
 from data.aws_helper import uploadfiletos3
-from file import fileIO
-from file.fileIO import list_frames_by_path, get_plf_file
-from logic.logic_services import general_param_logic
-from utils import log
+from file.fileIO import get_plf_file
+
 from utils.log import log_information
 from utils import consts
+from subprocess import Popen, PIPE
 
 __author__ = 'danga_000'
 
@@ -36,7 +35,7 @@ def create_params_output_path(gps,cycleid):
         os.makedirs(path)
     return path  + '/' + consts.paramsxml
 
-def run_algorithm(gps, cycleid, video, params):
+def run_algorithm(gps, cycleid, video):
     algoplfpath = create_algorithm_output_path(gps, cycleid, video)
     paramspath = create_params_output_path(gps,cycleid)
     # UniformMattingCA.exe -CA params.xml contour.ctr image-0001.jpg -avic -r25 -mp4 output.avi
@@ -50,9 +49,16 @@ def run_algorithm(gps, cycleid, video, params):
     awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/' + 'output.avi'
     try:
         print("Start Algorithem")
-        result = subprocess.call(algocommand, stderr=subprocess.STDOUT, shell=True)
-        log_information(gps, str(result))
-        print(str(result))
+
+
+        cmd = algocommand
+        p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
+        stdout, stderr = p.communicate()
+        print("message: " + str(stdout))
+        print("error: " + str(stderr))
+        result = "good"
+        if "failed" in str(stderr):
+            result = str(stderr)
         if not gps[consts.crashrunname].val:
             print("Upload to aws")
             uploadfiletos3('homage-automation', awsoutputpath, algoplfpath + '/' + 'output.avi')
@@ -61,5 +67,5 @@ def run_algorithm(gps, cycleid, video, params):
 
     outputplf = get_plf_file(algoplfpath)
     if outputplf:
-        return algoplfpath + '/' + outputplf, awsoutputpath
-    return None, awsoutputpath
+        return algoplfpath + '/' + outputplf, awsoutputpath, result
+    return None, awsoutputpath, result
