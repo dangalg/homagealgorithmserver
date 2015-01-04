@@ -17,7 +17,7 @@ def get_AutoRunVideo_by_cycleidvideoid(cycleid,videoid):
 def insert_autorunvideo(autorunvideo):
     # Prepare SQL query to INSERT a record into the database.
     query = """INSERT INTO AutoRunVideo(cycle_id,
-         video_id, average_score, avexception, variance_score, final_score, aws_plf)
+         video_id, average_score, avexception, variance_score, final_score, aws_output)
          VALUES ({0}, {1}, {2}, '{3}', {4}, {5},'{6}')""".format(autorunvideo.cycleid,
                                                  autorunvideo.videoid,
                                                  autorunvideo.averagescore,
@@ -29,7 +29,7 @@ def insert_autorunvideo(autorunvideo):
 
 def update_autorunvideo(autorunvideo):
     # Prepare SQL query to UPDATE required records
-    query = "UPDATE AutoRunVideo SET average_score = {0}, avexception = '{1}', variance_score = {2}, final_score = {3}, aws_plf = '{4}' " \
+    query = "UPDATE AutoRunVideo SET average_score = {0}, avexception = '{1}', variance_score = {2}, final_score = {3}, aws_output = '{4}' " \
             "WHERE cycle_id = {5} AND video_id = {6}".format(autorunvideo.averagescore,
                                                              autorunvideo.avexception,
                                                              autorunvideo.variancescore,
