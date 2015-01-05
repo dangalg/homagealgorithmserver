@@ -16,7 +16,7 @@ from data import db
 
 def insert_autorunvideoframe(autorunvideoframe):
     # Prepare SQL query to INSERT a record into the database.
-    query = """INSERT INTO AutoRunVideoFrame(cycle_id,
+    query = """INSERT INTO autorunvideoframe(cycle_id,
          video_id, frame_id, score, frame_exception)
          VALUES ({0}, {1}, {2}, {3},'{4}')""".format(autorunvideoframe.cycleid,
                                                  autorunvideoframe.videoid,
@@ -35,5 +35,5 @@ def insert_autorunvideoframe(autorunvideoframe):
 #
 def delete_autorunvideoframes_by_cycleidvideoid(cycleid, videoid):
     # Prepare SQL query to UPDATE required records
-    query = "DELETE FROM AutoRunVideoFrame WHERE cycle_id = {0} AND video_id = {1}".format(cycleid,videoid)
+    query = "DELETE FROM autorunvideoframe WHERE cycle_id = {0} AND video_id = {1}".format(cycleid,videoid)
     db.dml(query)

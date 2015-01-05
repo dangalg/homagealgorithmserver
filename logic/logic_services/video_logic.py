@@ -103,6 +103,8 @@ def update_ffmpeg(video):
     video_db.update_video_by_id(video.videoid,video)
 
 def get_framnum_from_path(video):
+    if not os.path.exists(get_frame_path(video)):
+        return 0
     frames = list_frames_by_path(get_frame_path(video)) # Gets jpg files!
     return len(frames)
 
@@ -137,7 +139,7 @@ def insert_update_videos_from_path(gps):
                 vid.videoid = updvid.videoid
             videosinfolder.append(vid)
         except IOError as e:
-            log.log_information("insert_update_videos_from_path error in video: " + vid.videoname + " " + str(e.args).replace("'",""))
+            log.log_information(gps, "insert_update_videos_from_path error in video: " + vid.videoname + " " + str(e.args).replace("'",""))
     return videosinfolder
 
 def comparevideosfroms3tolocalandadjust(gps):

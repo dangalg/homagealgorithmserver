@@ -33,7 +33,7 @@ __author__ = 'danga_000'
 
 def insert_param(parameter):
     # Prepare SQL query to INSERT a record into the database.
-    query = """INSERT INTO Parameters(algo_version,param_name,param_min, param_max, param_change, param_default)
+    query = """INSERT INTO parameters(algo_version,param_name,param_min, param_max, param_change, param_default)
          VALUES ('{0}', '{1}', {2}, {3},{4},{5})""".format(parameter.algoversion, parameter.name,parameter.min,parameter.max,parameter.change,parameter.default)
     db.dml(query)
 

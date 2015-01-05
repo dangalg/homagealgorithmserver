@@ -6,7 +6,7 @@ __author__ = 'danga_000'
 from data import db
 
 def get_AutoRunVideo_by_cycleidvideoid(cycleid,videoid):
-    query = "SELECT * FROM AutoRunVideo " \
+    query = "SELECT * FROM autorunvideo " \
             "WHERE cycle_id = {0} AND video_id = {1}".format(cycleid,videoid)
     cursor = db.get_cursor_from_query(query)
     row = cursor.fetchone()
@@ -16,7 +16,7 @@ def get_AutoRunVideo_by_cycleidvideoid(cycleid,videoid):
 
 def insert_autorunvideo(autorunvideo):
     # Prepare SQL query to INSERT a record into the database.
-    query = """INSERT INTO AutoRunVideo(cycle_id,
+    query = """INSERT INTO autorunvideo(cycle_id,
          video_id, average_score, avexception, variance_score, final_score, aws_output)
          VALUES ({0}, {1}, {2}, '{3}', {4}, {5},'{6}')""".format(autorunvideo.cycleid,
                                                  autorunvideo.videoid,
@@ -29,7 +29,7 @@ def insert_autorunvideo(autorunvideo):
 
 def update_autorunvideo(autorunvideo):
     # Prepare SQL query to UPDATE required records
-    query = "UPDATE AutoRunVideo SET average_score = {0}, avexception = '{1}', variance_score = {2}, final_score = {3}, aws_output = '{4}' " \
+    query = "UPDATE autorunvideo SET average_score = {0}, avexception = '{1}', variance_score = {2}, final_score = {3}, aws_output = '{4}' " \
             "WHERE cycle_id = {5} AND video_id = {6}".format(autorunvideo.averagescore,
                                                              autorunvideo.avexception,
                                                              autorunvideo.variancescore,
@@ -41,5 +41,5 @@ def update_autorunvideo(autorunvideo):
 #
 def delete_autorunvideo_by_cycleidvideoid(autorunvideo):
     # Prepare SQL query to UPDATE required records
-    query = "DELETE FROM AutoRunVideo WHERE cycle_id = {0} AND video_id = {1}".format(autorunvideo.cycleid,autorunvideo.videoid,)
+    query = "DELETE FROM autorunvideo WHERE cycle_id = {0} AND video_id = {1}".format(autorunvideo.cycleid,autorunvideo.videoid,)
     db.dml(query)
