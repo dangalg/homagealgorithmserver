@@ -3,12 +3,14 @@ import math
 from algorithm.algorithm import run_algorithm
 from compare.compare import run_compare_on_frame
 from file.fileIO import get_plf_file
+from logic.logic_services import auto_run_video_logic
 from logic.logic_services.auto_run_video_frame_logic import insert_autorunvideoframe, \
     delete_autorunvideoframes_by_cycleidvideoid
 from logic.logic_services.auto_run_video_logic import insert_autorunvideo, get_autorunvideo_by_cycleidvideoid, \
     update_autorunvideo
+from logic.logic_services.auto_run_video_frame_logic import get_new_autorunvideoframe_id
 from logic.logic_services.crash_run_video_logic import insert_crashrunvideo, update_crashrunvideo, \
-    get_crashrunvideo_by_cycleidvideoid
+    get_crashrunvideo_by_cycleidvideoid, get_new_crashrunvideo_id
 from models.autorunvideo import AutoRunVideo
 from models.autorunvideoframe import AutoRunVideoFrame
 from models.crash_run_video import CrashRunVideo
@@ -21,10 +23,10 @@ from subprocess import Popen, PIPE
 
 
 def create_auto_run_video(autovideo, crashcount, cycleid, foundautovideo, gps, video):
-    autovideo = AutoRunVideo(cycleid, video.videoid, 0, "Not Initialized", 0, 0, 'None')
+    autovideo = AutoRunVideo(auto_run_video_logic.get_new_autorunvideo_id(), cycleid, video.videoid, -1, "Not Initialized", -1, -1, 'None')
     try:
         # create algorithm files
-        algoplf, awsplf, result = run_algorithm(gps, cycleid, video)
+        algoplf, result, s3_url = run_algorithm(gps, cycleid, video)
         # get gt file
         saymaplf = get_plf_file(video.path)
         if saymaplf:
@@ -46,7 +48,8 @@ def create_auto_run_video(autovideo, crashcount, cycleid, foundautovideo, gps, v
                 autovideo.finalscore = score
                 autovideo.avexception = "good"
                 log.log_information(gps, autovideo.avexception)
-                autovideo.awsoutput = awsplf
+                if s3_url:
+                    autovideo.awsoutput = s3_url
         elif algoplf is None:
             # If not same frame count return exception
             autovideo.avexception = "No algorithm file"
@@ -81,8 +84,8 @@ def create_crash_run_video(crashcount, cycleid, gps, video):
     crashrunvideo = get_crashrunvideo_by_cycleidvideoid(cycleid, video.videoid)
     if crashrunvideo:
         foundcrashvideo = True
-    crashrunvideo = CrashRunVideo(cycleid, video.videoid, "Not Initialized")
-    algoplf, awsplf, result = run_algorithm(gps, cycleid, video)
+    crashrunvideo = CrashRunVideo(get_new_crashrunvideo_id(), cycleid, video.videoid, "Not Initialized")
+    algoplf, result, s3_url = run_algorithm(gps, cycleid, video)
     if algoplf and result == "good":
         crashrunvideo.crvexception = 'good'
     else:
@@ -130,9 +133,9 @@ def run_auto_video_frames(avgscore, comparefile, cycleid, gps, i, linecounter, v
                 pctX = values[5]
                 pctY = values[6]
                 pctY = pctY.replace('\n', '')
-                score = run_compare_on_frame(framenum, avgdistX, avgdistY, varX, varY, pctX, pctY)
+                score = run_compare_on_frame(framenum, float(avgdistX), float(avgdistY), float(varX), float(varY), float(pctX), float(pctY))
                 # create and save frame to database
-                autoframe = AutoRunVideoFrame(cycleid, video.videoid, linecounter, score, "good")
+                autoframe = AutoRunVideoFrame(get_new_autorunvideoframe_id(), cycleid, video.videoid, linecounter, score, "good")
                 insert_autorunvideoframe(autoframe)
                 avgscore = avgscore + score
                 variance += score * score
@@ -140,7 +143,7 @@ def run_auto_video_frames(avgscore, comparefile, cycleid, gps, i, linecounter, v
             except (IndexError, IOError) as e:
                 frameerror = str(e.args).replace("'", "")
                 shortenederror = (frameerror[:600] + '..') if len(frameerror) > 600 else frameerror
-                autoframe = AutoRunVideoFrame(cycleid, video.videoid, linecounter, 0, shortenederror)
+                autoframe = AutoRunVideoFrame(get_new_autorunvideoframe_id(), cycleid, video.videoid, linecounter, 0, shortenederror)
                 insert_autorunvideoframe(autoframe)
                 log.log_information(gps, frameerror)
     return avgscore, linecounter, variance
@@ -151,7 +154,7 @@ def run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf):
     comparefile = gps[consts.outputfoldername].val + gps[consts.algoversionname].val + '/' + str(cycleid) + '/' \
                   + video.videoname + '/' + 'compare.txt'
     #Algo_Path Countour_Path First_Frame_Path -bmp Output_Path
-    comparecommand = gps[consts.algofoldername].val + 'PlfComapreCA.exe ' \
+    comparecommand = gps[consts.comparefilepathname].val + ' ' \
     + algoplf + ' ' \
     + saymaplf + ' ' \
     + comparefile
@@ -178,7 +181,10 @@ def run_compare_algorithem_to_gt(gps, cycleid, video, algoplf, saymaplf):
         variantavgscore = variance / linecounter
         finalvariancescore = math.sqrt(variantavgscore - avgscore * avgscore)
 
-        return (avgscore - finalvariancescore), avgscore, finalvariancescore, result
+        finalscore = (avgscore - finalvariancescore)
+        if finalscore < 0:
+            finalscore = 0
+        return finalscore, avgscore, finalvariancescore, result
     else:
         return 0,0,0, result
 

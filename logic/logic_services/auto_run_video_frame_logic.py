@@ -15,3 +15,11 @@ def insert_autorunvideoframe(autorunvideoframe):
 
 def delete_autorunvideoframes_by_cycleidvideoid(cycleid, videoid):
     auto_run_video_frame_db.delete_autorunvideoframes_by_cycleidvideoid(cycleid, videoid)
+
+
+def get_new_autorunvideoframe_id():
+    topid = auto_run_video_frame_db.get_top_autorunvideoframe_id()
+    newid = 1
+    if topid:
+        newid = topid + 1
+    return newid

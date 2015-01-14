@@ -17,6 +17,7 @@ videofoldername = 'VideoFolder'
 outputfoldername = 'OutputFolder'
 crashoutputfoldername = 'CrashOutputFolder'
 paramsfilepathname = 'ParamsFilePath'
+comparefilepathname = 'CompareFilePath'
 crashrunvideofoldername = 'CrashRunVideoFolder'
 remakelistname = 'RemakeList'
 crashrunname = 'CrashRun'
@@ -35,6 +36,9 @@ crashrunname = 'CrashRun'
 # AWS names
 awsvideos = 'Videos/'
 awscrashrunvideos = 'CrashRunVideos/'
+awsalgorithem = 'Algorithem/'
+awsautomationbucket = 'homage-automation'
 
 # file names
 paramsxml = 'params.xml'
+comparefile = 'PlfComapreCA.exe'

@@ -31,10 +31,18 @@ __author__ = 'danga_000'
 #         parameter = Parameter(row[0],row[1],row[2],row[3],row[4],row[5],row[6])
 #         return parameter
 
+def get_top_parameter_id():
+    query = "SELECT * FROM parameters ORDER BY parameter_id DESC LIMIT 1"
+    cursor = db.get_cursor_from_query(query)
+    row = cursor.fetchone()
+    if row:
+        parameter = Parameter(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
+        return parameter.parameterid
+
 def insert_param(parameter):
     # Prepare SQL query to INSERT a record into the database.
-    query = """INSERT INTO parameters(algo_version,param_name,param_min, param_max, param_change, param_default)
-         VALUES ('{0}', '{1}', {2}, {3},{4},{5})""".format(parameter.algoversion, parameter.name,parameter.min,parameter.max,parameter.change,parameter.default)
+    query = """INSERT INTO parameters(parameter_id, cycle_id, algo_version,param_name,param_min, param_max, param_change, param_default)
+         VALUES ({0}, {1}, '{2}', '{3}', {4}, {5},{6},{7})""".format(parameter.parameterid, parameter.cycle_id, parameter.algoversion, parameter.name,parameter.min,parameter.max,parameter.change,parameter.default)
     db.dml(query)
 
 # def update_param_by_name(version,name,parameter):

@@ -11,6 +11,14 @@ __author__ = 'danga_000'
 def insert_param(parameter):
     parameter_db.insert_param(parameter)
 
+
+def get_new_param_id():
+    topid = parameter_db.get_top_parameter_id()
+    newid = 1
+    if topid:
+        newid = topid + 1
+    return newid
+
 # def get_params_by_algo_version(version):
 #     return parameter_db.get_params_by_algo_version(version)
 

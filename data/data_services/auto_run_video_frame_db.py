@@ -3,7 +3,13 @@ from models.autorunvideoframe import AutoRunVideoFrame
 __author__ = 'danga_000'
 from data import db
 
-
+def get_top_autorunvideoframe_id():
+    query = "SELECT * FROM autorunvideoframe ORDER BY autorunvideoframe_id DESC LIMIT 1"
+    cursor = db.get_cursor_from_query(query)
+    row = cursor.fetchone()
+    if row:
+        autorunvideoframe = AutoRunVideoFrame(row[0],row[1],row[2],row[3],row[4],row[5])
+        return autorunvideoframe.autorunvideoframeid
 # def get_AutoRunVideoFrame_by_cycleidvideoidframeid(cycleid,videoid,frameid):
 #     query = "SELECT * FROM AutoRunVideoFrame " \
 #             "WHERE cycle_id = {0} AND video_id = {1} AND frame_id = {2}".format(cycleid,videoid,frameid)
@@ -16,9 +22,9 @@ from data import db
 
 def insert_autorunvideoframe(autorunvideoframe):
     # Prepare SQL query to INSERT a record into the database.
-    query = """INSERT INTO autorunvideoframe(cycle_id,
+    query = """INSERT INTO autorunvideoframe(autorunvideoframe_id, cycle_id,
          video_id, frame_id, score, frame_exception)
-         VALUES ({0}, {1}, {2}, {3},'{4}')""".format(autorunvideoframe.cycleid,
+         VALUES ({0}, {1}, {2}, {3}, {4},'{5}')""".format(autorunvideoframe.autorunvideoframeid, autorunvideoframe.cycleid,
                                                  autorunvideoframe.videoid,
                                                  autorunvideoframe.frameid,
                                                  autorunvideoframe.score,

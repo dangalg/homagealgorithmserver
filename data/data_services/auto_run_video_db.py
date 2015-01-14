@@ -5,20 +5,29 @@ __author__ = 'danga_000'
 
 from data import db
 
+def get_top_autorunvideo_id():
+    query = "SELECT * FROM autorunvideo ORDER BY autorunvideo_id DESC LIMIT 1"
+    cursor = db.get_cursor_from_query(query)
+    row = cursor.fetchone()
+    if row:
+        autorunvideo = AutoRunVideo(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
+        return autorunvideo.autorunvideoid
+
 def get_AutoRunVideo_by_cycleidvideoid(cycleid,videoid):
     query = "SELECT * FROM autorunvideo " \
             "WHERE cycle_id = {0} AND video_id = {1}".format(cycleid,videoid)
     cursor = db.get_cursor_from_query(query)
     row = cursor.fetchone()
     if row:
-        autorunvideo = AutoRunVideo(row[0],row[1],row[2],row[3],row[4],row[5],row[6])
+        autorunvideo = AutoRunVideo(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
         return autorunvideo
 
 def insert_autorunvideo(autorunvideo):
     # Prepare SQL query to INSERT a record into the database.
-    query = """INSERT INTO autorunvideo(cycle_id,
+    query = """INSERT INTO autorunvideo(autorunvideo_id, cycle_id,
          video_id, average_score, avexception, variance_score, final_score, aws_output)
-         VALUES ({0}, {1}, {2}, '{3}', {4}, {5},'{6}')""".format(autorunvideo.cycleid,
+         VALUES ({0}, {1}, {2}, {3}, '{4}', {5}, {6},'{7}')""".format(autorunvideo.autorunvideoid,
+                                                                      autorunvideo.cycleid,
                                                  autorunvideo.videoid,
                                                  autorunvideo.averagescore,
                                                  autorunvideo.avexception,

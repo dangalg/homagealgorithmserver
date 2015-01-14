@@ -23,5 +23,7 @@ def calculate(framenum, avgdistX, avgdistY, varX, varY, pctX, pctY):
     if varX > varY:
         var = varX
 
-    score = float((float(pixledistancepercentage) * float(100.00)) - (float(var)))
+    score = float((float(pixledistancepercentage) * float(100.00)) - (math.sqrt(float(var))))
+    if score < 0:
+        score = 0
     return float(score)

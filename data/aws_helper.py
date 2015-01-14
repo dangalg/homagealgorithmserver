@@ -24,19 +24,25 @@ def uploadfiletos3(bucketname, keyname, localfilename):
     homagealgobucket = s3.get_bucket(bucketname)
     k = Key(homagealgobucket)
     k.key = keyname
+    boto.logging.info('Uploading file: ' + keyname)
     k.set_contents_from_filename(localfilename)
+    k.set_metadata('Content-Type', 'video/avi')
+    k.set_acl('public-read')
+    url = k.generate_url(expires_in=0, query_auth=False, force_http=True)
+    return url
 
 
 def downloadfilefroms3(bucketname, keyname, localfilename):
     homagealgobucket = s3.get_bucket(bucketname)
     k = Key(homagealgobucket)
     k.key = keyname
+    boto.logging.info('Downloading file: ' + keyname)
     k.get_contents_to_filename(localfilename)
 
 
 def downloadfolderfroms3(bucketname, keyname, localfoldername):
     homagealgobucket = s3.get_bucket(bucketname)
-    boto.logging.info('Downloading video ' + keyname)
+    boto.logging.info('Downloading Folder: ' + keyname)
     for key in homagealgobucket.get_all_keys(prefix=keyname):
         try:
             head, tail = os.path.split(localfoldername + '/' + key.name)
@@ -45,12 +51,12 @@ def downloadfolderfroms3(bucketname, keyname, localfoldername):
             res = key.get_contents_to_filename(localfoldername + '/' + key.name)
         except IOError as e:
             boto.logging.info(str(e.args).replace("'", ""))
-    boto.logging.info('Finished Downloading video ' + keyname)
+    boto.logging.info('Finished Downloading file ' + keyname)
 
 
 def listfolderfroms3(bucketname, keyname):
     homagealgobucket = s3.get_bucket(bucketname)
-    boto.logging.info('Listing videos for: ' + keyname)
+    boto.logging.info('Listing files for: ' + keyname)
     videos = []
     for key in homagealgobucket.get_all_keys(prefix=keyname, delimiter='/'):
         try:
@@ -60,7 +66,7 @@ def listfolderfroms3(bucketname, keyname):
             videos.append(videoname)
         except IOError as e:
             boto.logging.info(str(e.args).replace("'", ""))
-    boto.logging.info('Finished Listing videos')
+    boto.logging.info('Finished Listing files')
     # Remove keyname from list
     videos.remove(os.path.split(keyname)[0])
     for v in videos:
