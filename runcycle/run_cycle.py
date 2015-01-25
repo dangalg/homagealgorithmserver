@@ -32,8 +32,7 @@ def run_cycle(crashrun, optimize, updatedb, algoversion, mainfolder, remakelist)
     gps = set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder,remakelist)
 
     # Download Algorithem from S3
-    downloadfolderfroms3(consts.awsautomationbucket, consts.awsalgorithem + gps[consts.algoversionname].val, gps[consts.algofoldername].val +
-                       gps[consts.algoversionname].val)
+    downloadfolderfroms3(consts.awsautomationbucket, consts.awsalgorithem + gps[consts.algoversionname].val, gps[consts.mainfoldername].val)
     # Download Compare File
     downloadfilefroms3(consts.awsautomationbucket ,consts.awsalgorithem + consts.comparefile, gps[consts.comparefilepathname].val)
 
