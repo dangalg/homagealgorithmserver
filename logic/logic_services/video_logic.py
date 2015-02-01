@@ -9,6 +9,7 @@ from utils import consts
 __author__ = 'danga_000'
 
 # from file import ffmpeg
+from files import zippy
 
 def insert_update_videos_from_path(gps):
     videos = comparevideosfroms3tolocalandadjust(gps)
@@ -57,9 +58,18 @@ def comparevideosfroms3tolocalandadjust(gps):
         for vid in localvideos:
             if vid == s3vid:
                 videofound = True
-        if not videofound or any(s3vid in s for s in gps[consts.remakelistname].val):
+        if not videofound or \
+                any(s3vid in s for s in gps[consts.remakelistname].val) or \
+                gps[consts.updatedbname].val:
             print("Downloading: " + str(s3vid))
             aws_helper.downloadfolderfroms3(consts.awsautomationbucket, awsvideofolder + s3vid, directory + '/')
+            print("Zipping: " + str(s3vid))
+            zippy.zip_video_folder(gps[consts.videofoldername].val + s3vid,
+                                   gps[consts.videofoldername].val + s3vid)
+            print("Uploading: " + str(s3vid))
+            aws_helper.uploadfiletos3(consts.awsautomationbucket,
+                                      awsvideofolder + s3vid + '.zip',
+                                      gps[consts.videofoldername].val + s3vid + '.zip')
     return s3videos  #localvideos
 
 
@@ -87,103 +97,3 @@ def get_framnum_from_path(video):
 
 def get_frame_path(video):
     return video.path + "/" + "Frames" #video.videoname.split('.')[0]
-
-# def ffmpeg_on_video(video):
-#     if video.ffmpeg == 0:
-#         try:
-#             ffmpeg.ffmpeg_on_path(video.path)
-#             video.ffmpeg = 1
-#             update_ffmpeg(video)
-#         except IOError:
-#             log_video_error("ffmpeg_on_video error: ", video)
-
-# def update_ffmpeg(video):
-#     video.ffmpeg = 1
-#     video_db.update_video_by_id(video.videoid,video)
-
-# def insert_update_video(video):
-#     newid = get_new_video_id()
-#     updvid = get_video_by_name(video.videoname)
-#     try:
-#         framenum = get_framnum_from_path(video) # Frames must be in a folder with the same name as the video
-#         video.videoid = newid
-#         video.numofframes = framenum
-#         if not updvid:
-#             video_db.insert_video(video)
-#         else:
-#             video_db.update_video_by_id(updvid.videoid,video)
-#     except IOError:
-#             log_video_error("insert_update_videos_from_path error in video named {0}: ".format(video.videoname), video)
-#
-# def delete_video_by_id(id):
-#     video_db.delete_video_by_id(id)
-
-
-# def log_video_error(message, video=None):
-#     if video:
-#         log.log_information(message + str(video.videoid) + "name: " +
-#                            video.videoname + "num of frames: " +
-#                            str(video.numofframes) + "path: " +
-#                            video.path + "ffmpeg: " +
-#                            str(video.ffmpeg) )
-#     else:
-#         log.log_information(message + " Video info not available")
-
-# def get_all_frames_from_video(video):
-#     frames = []
-#     path = get_frame_path(video)
-#     if os.path.exists(path):
-#         frames = list_frames_by_path(path)
-#         # for i in range(1,video.numofframes + 1):
-#         #     frame = get_frame_path(video) + "/" + "image" + "-" + '{0:04}'.format(i) + ".jpg"
-#         #     if os.path.exists(frame):
-#         #         frames.append(frame)
-#     return frames
-
-# def get_gt_file(video):
-#     GTpath = get_GT_path(video)
-#     if os.path.exists(GTpath):
-#         return get_plf_file(GTpath)
-#         testframes = get_plf_file(GTpath)
-#         # testpath = get_GT_path(video) + "/" + "image" + "-"
-#         # for i in range(0,video.numofframes):
-#         #     frame = testpath + '{0:02}'.format(i) + ".bmp"
-#         #     if os.path.exists(frame):
-#         #         testframes.append(frame)
-#     return testframes
-
-# def get_all_gt_files_from_video(video):
-#     testframes = []
-#     GTpath = get_GT_path(video)
-#     if os.path.exists(GTpath):
-#         testframes = get_algo_plf_file(GTpath)
-#         # testpath = get_GT_path(video) + "/" + "image" + "-"
-#         # for i in range(0,video.numofframes):
-#         #     frame = testpath + '{0:02}'.format(i) + ".bmp"
-#         #     if os.path.exists(frame):
-#         #         testframes.append(frame)
-#     return testframes
-
-# def get_GT_path(video):
-#     return video.path #video.videoname.split('.')[0]
-
-# def get_all_videos():
-#     videos = video_db.get_all_videos()
-#     for video in videos:
-#         video.path = escape_backslash(video.path)
-#     return videos
-
-# def escape_backslash(name):
-#     # name = os.path.abspath(name)
-#     return name
-
-# def get_videos_by_search(query):
-#     videos = video_db.get_videos_by_search(query)
-#     # for video in videos:
-#     #     video.path = escape_backslash(video.path)
-#     return videos
-
-# def get_video_by_id(id):
-#     video =  video_db.delete_video_by_id(id)
-#     # video.path = escape_backslash(video.path)
-#     return video
