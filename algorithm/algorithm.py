@@ -39,7 +39,7 @@ def run_algorithm(gps, cycleid, video):
     algoplfpath = create_algorithm_output_path(gps, cycleid, video)
     paramspath = create_params_output_path(gps,cycleid)
     # UniformMattingCA.exe -CA params.xml contour.ctr image-0001.jpg -avic -r25 -mp4 output.avi
-    algocommand = gps[consts.algofoldername].val + gps[consts.algoversionname].val + '/' + 'UniformMattingCA.exe -CA ' \
+    algocommand = gps[consts.algofoldername].val + gps[consts.algoversionname].val + '/' + consts.algorithmfile + ' -CA ' \
     + paramspath + ' ' \
     + video.path + '/' + video.videoname + '.ctr ' \
     + ' ' + video.path + '/' + 'Frames' + '/image-0001.jpg -avic -r25 -mp4 ' \
