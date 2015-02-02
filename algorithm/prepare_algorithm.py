@@ -1,7 +1,9 @@
 import subprocess
 import math
-from algorithm.algorithm import run_algorithm
+from algorithm.algorithm import run_algorithm, create_algorithm_output_path
 from compare.compare import run_compare_on_frame
+from data.aws_helper import uploadfiletos3
+from file import zippy
 from file.fileIO import get_plf_file
 from logic.logic_services import auto_run_video_logic
 from logic.logic_services.auto_run_video_frame_logic import insert_autorunvideoframe, \
@@ -116,6 +118,22 @@ def run_algorithm_then_compare(run, gps, cycleid, video):
 
 
 def run_auto_video_frames(avgscore, comparefile, cycleid, gps, i, linecounter, variance, video):
+
+    algoplfpath = create_algorithm_output_path(gps, cycleid, video)
+
+    awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname
+
+
+    # zip output folder and Upload to s3
+    print("Zipping: " + str(algoplfpath))
+    zippy.zip_video_folder(algoplfpath, algoplfpath)
+    print("Uploading: " + str(algoplfpath))
+    uploadfiletos3(consts.awsautomationbucket,
+                              awsoutputpath + '.zip',
+                              algoplfpath + '.zip')
+
+
+    # Calculate Score
     with open(comparefile, 'r') as f:
         for x in f:
             try:

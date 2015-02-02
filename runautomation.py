@@ -30,7 +30,7 @@ elif len(sys.argv) == 6 or len(sys.argv) == 7:
     mainfolder = sys.argv[5]
     if len(sys.argv) == 7:
         remakelist = str(sys.argv[6]).split(",")
-    run_cycle('1', str(optimize), str(updatedb), str(algoversion), str(mainfolder), remakelist)
+    # run_cycle('1', str(optimize), str(updatedb), str(algoversion), str(mainfolder), remakelist)
     run_cycle('0', str(optimize), str(updatedb), str(algoversion), str(mainfolder), remakelist)
 else:
     print("Woah cowboy")

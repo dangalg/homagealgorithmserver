@@ -1,6 +1,8 @@
 import os
 import subprocess
+from data import aws_helper
 from data.aws_helper import uploadfiletos3
+from file import zippy
 from file.fileIO import get_plf_file
 
 from utils.log import log_information
@@ -19,7 +21,7 @@ def create_algorithm_output_path(gps, cycleid, video):
     else:
         path = os.path.abspath(gps[consts.outputfoldername].val + gps[consts.algoversionname].val + "/" + str(cycleid)
             + "/" + video.videoname + "/")
-    # path = os.path.abspath(video.path + "/" + algoversion + "/"  + str(cycleid) + "/")
+
     if not os.path.exists(path):
         os.makedirs(path)
     return path
@@ -36,48 +38,50 @@ def create_params_output_path(gps,cycleid):
     return path  + '/' + consts.paramsxml
 
 def run_algorithm(gps, cycleid, video):
+
     algoplfpath = create_algorithm_output_path(gps, cycleid, video)
     paramspath = create_params_output_path(gps,cycleid)
-    # UniformMattingCA.exe -CA params.xml contour.ctr image-0001.jpg -avic -r25 -mp4 output.avi
+
+    # Create algorithm command
     algocommand = gps[consts.algofoldername].val + gps[consts.algoversionname].val + '/' + consts.algorithmfile + ' -CA ' \
     + paramspath + ' ' \
     + video.path + '/' + video.videoname + '.ctr ' \
     + ' ' + video.path + '/' + 'Frames' + '/image-0001.jpg -avic -r25 -mp4 ' \
     + algoplfpath + '/' + 'output.avi'
-    # os.system(algocommand)
 
-    awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
     result = "good"
     s3_output_url = None
     try:
         print("Start Algorithem")
 
-
+        # Run Algorithm
         cmd = algocommand
         p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
         stdout, stderr = p.communicate()
         print("message: " + str(stdout))
         print("error: " + str(stderr))
+
         if "failed" in str(stderr):
             result = str(stderr)
+
         if not gps[consts.crashrunname].val:
             if os.path.exists(algoplfpath + '/' + 'output.avi'):
                 print("Convert and Upload to aws")
-                # convert to mp4 with ffmpeg
+                # convert avi to mp4 with ffmpeg
                 cmd = 'ffmpeg -i ' + algoplfpath + '/' + 'output.avi' + ' -vcodec libx264 -b:v 1200k -y ' + algoplfpath + '/' + 'output.mp4'
                 p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
                 stdout, stderr = p.communicate()
                 print("message: " + str(stdout))
                 print("error: " + str(stderr))
-                # upload to s3
-                s3_output_url = uploadfiletos3(consts.awsautomationbucket, awsoutputpath + 'output.mp4', algoplfpath + '/' + 'output.mp4')
                 # delete avi file
                 os.remove(algoplfpath + '/' + 'output.avi')
+
     except OSError as e:
         log_information(gps, str(e.args).replace("'",""))
 
     outputplf = get_plf_file(algoplfpath)
-    if outputplf:
-        s3_plf_url = uploadfiletos3(consts.awsautomationbucket, awsoutputpath + 'output.plf', algoplfpath + '/' + 'output.plf')
+
+    if outputplf and not gps[consts.crashrunname].val:
         return algoplfpath + '/' + outputplf, result, s3_output_url
+
     return None, result, s3_output_url
