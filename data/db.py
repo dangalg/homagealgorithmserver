@@ -21,7 +21,7 @@ def get_connection():
         connection = pymysql.connect(host="localhost", # your host, usually localhost
                                      port=3306,
                                      user="root", # your username
-                                     passwd="1234", # your password
+                                     passwd="homageIt10", # your password
                                      db="homage") # name of the data base
         connection.autocommit(True)
     return connection

@@ -1,15 +1,17 @@
 import os
+
 from data import aws_helper
 from data.data_services import video_db
+from file import zippy
 from file.fileIO import list_videos_by_path, list_frames_by_path
 from models.video import Video
 from utils import log
 from utils import consts
 
+
 __author__ = 'danga_000'
 
 # from file import ffmpeg
-from files import zippy
 
 def insert_update_videos_from_path(gps):
     videos = comparevideosfroms3tolocalandadjust(gps)
@@ -51,8 +53,14 @@ def comparevideosfroms3tolocalandadjust(gps):
     awsvideofolder = consts.awsvideos
     if gps[consts.crashrunname].val:
         awsvideofolder = consts.awscrashrunvideos
-    s3videos = aws_helper.listfolderfroms3(consts.awsautomationbucket, awsvideofolder)
+    s3files = aws_helper.listfolderfroms3(consts.awsautomationbucket, awsvideofolder)
+    s3videos = []
+    # Remove zip files from s3 list
+    for s3vid in s3files:
+        if ".zip" not in s3vid and 'Videos' not in s3vid:
+            s3videos.append(s3vid)
 
+    # check if video is on local computer and if not then download it
     for s3vid in s3videos:
         videofound = False
         for vid in localvideos:

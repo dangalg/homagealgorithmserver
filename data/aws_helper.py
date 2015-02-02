@@ -10,15 +10,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
-s3 = boto.connect_s3()
+# s3 = boto.connect_s3()
 
-# conn = boto.connect_s3(
-#         aws_access_key_id = access_key,
-#         aws_secret_access_key = secret_key,
-#         host = 'objects.dreamhost.com',
-#         #is_secure=False,               # uncomment if you are not using ssl
-#         calling_format = boto.s3.connection.OrdinaryCallingFormat(),
-#         )
+s3 = boto.connect_s3(
+        aws_access_key_id = "AKIAJTPGKC25LGKJUCTA",
+        aws_secret_access_key = "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",
+        # host = 'objects.dreamhost.com',
+        #is_secure=False,               # uncomment if you are not using ssl
+        # calling_format = boto.s3.connection.OrdinaryCallingFormat()
+        )
 
 def uploadfiletos3(bucketname, keyname, localfilename):
     homagealgobucket = s3.get_bucket(bucketname)

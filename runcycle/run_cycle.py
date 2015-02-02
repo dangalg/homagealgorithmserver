@@ -7,6 +7,7 @@ from algorithm.algorithm import create_params_output_path
 from algorithm.prepare_algorithm import run_algorithm_then_compare
 from data.aws_helper import downloadfilefroms3, downloadfolderfroms3
 from file import fileIO
+from file.jsonIO import update_progress_json
 from logic.logic_services import crash_run_logic
 from logic.logic_services import auto_run_logic
 from logic.logic_services.auto_run_logic import get_autorun_by_algorithem_params
@@ -29,6 +30,7 @@ __author__ = 'danga_000'
 def run_cycle(crashrun, optimize, updatedb, algoversion, mainfolder, remakelist):
 
     print("Setting params...")
+    update_progress_json("Starting Algo Run", 1, 10)
     gps = set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder,remakelist)
 
     # Download Algorithem from S3
@@ -50,22 +52,24 @@ def run_cycle(crashrun, optimize, updatedb, algoversion, mainfolder, remakelist)
         params = create_params(i, permutationlist, permutationparams)
         cycleid, run = get_cycle_id(crashrun, gps, params)
         print("Starting Run Cycle " + str(cycleid))
+        update_progress_json("Starting Run Cycle", 2, 10)
         write_params_to_file(cycleid, gps, params) # run cycle on all videos:
         print("running " + str(i) + " permutation: " + str(permutationlist[i]))
         startdate= datetime.datetime.now()
         run_video_cycle(gps, cycleid, numofvideos, startdate, videos, run, params)
-
+    update_progress_json("FINISHED", 100, 100)
     print("*********** FINISHED **************")
 
 
 def run_video_cycle(gps, cycleid, numofvideos, startdate, videos, run, params):
     crashcount = 0
+    videocount = numofvideos
     if not gps[consts.crashrunname].val:
-        videocount = numofvideos
         i=2
         avgscore = 0
         for video in videos:
             i = i+1
+            update_progress_json("Testing " + video.videoname, i, numofvideos + 2)
             print("Testing " + video.videoname)
             try:
                 autovideo, crashnum = run_algorithm_then_compare(run, gps, cycleid, video)
@@ -91,8 +95,11 @@ def run_video_cycle(gps, cycleid, numofvideos, startdate, videos, run, params):
         save_avgscore_to_report(gps, avgscore, cycleid)
         print("**** Finished Cycle " + str(cycleid) + " Score: " + str(avgscore) + " ****")
     else:
+        i=2
         for video in videos:
+            i = i+1
             print("Crash Testing " + video.videoname)
+            update_progress_json("Crash Testing " + video.videoname, i, numofvideos + 2)
             crashrunvideo, crashnum = run_algorithm_then_compare(run, gps, cycleid, video)
             crashcount += crashnum
         cr = CrashRun(run.cycleid, run.algoversion, run.params, run.startdate, datetime.datetime.now(), crashcount)

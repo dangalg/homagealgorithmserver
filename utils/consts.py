@@ -39,6 +39,10 @@ awscrashrunvideos = 'CrashRunVideos/'
 awsalgorithem = 'Algorithem/'
 awsautomationbucket = 'homage-automation'
 
+
+
 # file names
 paramsxml = 'params.xml'
 comparefile = 'PlfComapreCA.exe'
+algorithmfile = 'UniformMattingCA.exe'
+progressjson = 'D:/algorunprogress.json'
