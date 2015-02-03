@@ -49,6 +49,8 @@ def run_algorithm(gps, cycleid, video):
     + ' ' + video.path + '/' + 'Frames' + '/image-0001.jpg -avic -r25 -mp4 ' \
     + algoplfpath + '/' + 'output.avi'
 
+    awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
+
     result = "good"
     s3_output_url = None
     try:
@@ -73,6 +75,10 @@ def run_algorithm(gps, cycleid, video):
                 stdout, stderr = p.communicate()
                 print("message: " + str(stdout))
                 print("error: " + str(stderr))
+
+                # upload to s3
+                s3_output_url = uploadfiletos3(consts.awsautomationbucket, awsoutputpath + 'output.mp4', algoplfpath + '/' + 'output.mp4')
+
                 # delete avi file
                 os.remove(algoplfpath + '/' + 'output.avi')
 
@@ -80,6 +86,9 @@ def run_algorithm(gps, cycleid, video):
         log_information(gps, str(e.args).replace("'",""))
 
     outputplf = get_plf_file(algoplfpath)
+
+    if outputplf:
+        s3_plf_url = uploadfiletos3(consts.awsautomationbucket, awsoutputpath + 'output.plf', algoplfpath + '/' + 'output.plf')
 
     if outputplf and not gps[consts.crashrunname].val:
         return algoplfpath + '/' + outputplf, result, s3_output_url
