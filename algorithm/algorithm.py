@@ -49,7 +49,12 @@ def run_algorithm(gps, cycleid, video):
     + ' ' + video.path + '/' + 'Frames' + '/image-0001.jpg -avic -r25 -mp4 ' \
     + algoplfpath + '/' + 'output.avi'
 
-    awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
+    awsoutputpath = ''
+
+    if gps[consts.crashrunname].val:
+        awsoutputpath = 'CrashOutput/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
+    else:
+        awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
 
     result = "good"
     s3_output_url = None

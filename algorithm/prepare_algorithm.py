@@ -121,7 +121,12 @@ def run_auto_video_frames(avgscore, comparefile, cycleid, gps, i, linecounter, v
 
     algoplfpath = create_algorithm_output_path(gps, cycleid, video)
 
-    awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname
+    awsoutputpath = ''
+
+    if gps[consts.crashrunname].val:
+        awsoutputpath = 'CrashOutput/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
+    else:
+        awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
 
 
     # zip output folder and Upload to s3

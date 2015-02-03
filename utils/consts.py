@@ -34,6 +34,8 @@ crashrunname = 'CrashRun'
 # crashrun = 8
 
 # AWS names
+awsoutput = 'Output/'
+awscrashoutput = 'CrashOutput/'
 awsvideos = 'Videos/'
 awscrashrunvideos = 'CrashRunVideos/'
 awsalgorithem = 'Algorithem/'
