@@ -88,7 +88,7 @@ def create_crash_run_video(crashcount, cycleid, gps, video):
         foundcrashvideo = True
     crashrunvideo = CrashRunVideo(get_new_crashrunvideo_id(), cycleid, video.videoid, "Not Initialized")
     algoplf, result, s3_url = run_algorithm(gps, cycleid, video)
-    if algoplf and result == "good":
+    if result == "good":
         crashrunvideo.crvexception = 'good'
     else:
         crashrunvideo.crvexception = 'Algorithem malfunctioned: ' + str(result).replace("'", "")
@@ -103,14 +103,16 @@ def create_crash_run_video(crashcount, cycleid, gps, video):
 def run_algorithm_then_compare(run, gps, cycleid, video):
     crashcount = 0
     if not gps[consts.crashrunname].val:
+
+        # I found video update it please if not insert
         foundautovideo = False
         autovideo = get_autorunvideo_by_cycleidvideoid(cycleid,video.videoid)
         if autovideo:
             foundautovideo = True
-        if gps[consts.updatedbname].val or not autovideo or autovideo.avexception != "good" \
-                or any(video.videoname in s for s in gps[consts.remakelistname].val):
-            # create auto video for insert in database
-            autovideo, crashcount = create_auto_run_video(autovideo, crashcount, cycleid, foundautovideo, gps, video)
+
+        # create auto video for insert in database
+        autovideo, crashcount = create_auto_run_video(autovideo, crashcount, cycleid, foundautovideo, gps, video)
+
         return autovideo, crashcount
     else:
         crashcount, crashrunvideo = create_crash_run_video(crashcount, cycleid, gps, video)
@@ -124,9 +126,9 @@ def run_auto_video_frames(avgscore, comparefile, cycleid, gps, i, linecounter, v
     awsoutputpath = ''
 
     if gps[consts.crashrunname].val:
-        awsoutputpath = 'CrashOutput/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
+        awsoutputpath = 'CrashOutput/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname
     else:
-        awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname + '/'
+        awsoutputpath = 'Output/' + gps[consts.algoversionname].val + "/" + str(cycleid) + "/" + video.videoname
 
 
     # zip output folder and Upload to s3

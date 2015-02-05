@@ -92,10 +92,8 @@ def run_algorithm(gps, cycleid, video):
 
     outputplf = get_plf_file(algoplfpath)
 
-    if outputplf:
-        s3_plf_url = uploadfiletos3(consts.awsautomationbucket, awsoutputpath + 'output.plf', algoplfpath + '/' + 'output.plf')
-
     if outputplf and not gps[consts.crashrunname].val:
+        s3_plf_url = uploadfiletos3(consts.awsautomationbucket, awsoutputpath + 'output.plf', algoplfpath + '/' + 'output.plf')
         return algoplfpath + '/' + outputplf, result, s3_output_url
 
     return None, result, s3_output_url
