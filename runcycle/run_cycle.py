@@ -30,7 +30,7 @@ __author__ = 'danga_000'
 def run_cycle(crashrun, optimize, updatedb, algoversion, mainfolder, remakelist):
 
     print("Setting params...")
-    update_progress_json("Starting Algo Run", 1, 10)
+    update_progress_json("Starting Algo Run", 1, 10, algoversion)
     gps = set_user_info(crashrun, optimize, updatedb, algoversion,mainfolder,remakelist)
 
     # Download Algorithem from S3
@@ -52,12 +52,12 @@ def run_cycle(crashrun, optimize, updatedb, algoversion, mainfolder, remakelist)
         params = create_params(i, permutationlist, permutationparams)
         cycleid, run = get_cycle_id(crashrun, gps, params)
         print("Starting Run Cycle " + str(cycleid))
-        update_progress_json("Starting Run Cycle", 2, 10)
+        update_progress_json("Starting Run Cycle", 2, 10, algoversion)
         write_params_to_file(cycleid, gps, params) # run cycle on all videos:
         print("running " + str(i) + " permutation: " + str(permutationlist[i]))
         startdate= datetime.datetime.now()
         run_video_cycle(gps, cycleid, numofvideos, startdate, videos, run, params)
-    update_progress_json("FINISHED", 100, 100)
+    update_progress_json("FINISHED", 100, 100, algoversion)
     print("*********** FINISHED **************")
 
 
@@ -69,7 +69,7 @@ def run_video_cycle(gps, cycleid, numofvideos, startdate, videos, run, params):
         avgscore = 0
         for video in videos:
             i = i+1
-            update_progress_json("Testing " + video.videoname, i, numofvideos + 2)
+            update_progress_json("Testing " + video.videoname, i, numofvideos + 2, gps[consts.algoversionname].val)
             print("Testing " + video.videoname)
             try:
                 autovideo, crashnum = run_algorithm_then_compare(run, gps, cycleid, video)
@@ -99,7 +99,7 @@ def run_video_cycle(gps, cycleid, numofvideos, startdate, videos, run, params):
         for video in videos:
             i = i+1
             print("Crash Testing " + video.videoname)
-            update_progress_json("Crash Testing " + video.videoname, i, numofvideos + 2)
+            update_progress_json("Crash Testing " + video.videoname, i, numofvideos + 2, gps[consts.algoversionname].val)
             crashrunvideo, crashnum = run_algorithm_then_compare(run, gps, cycleid, video)
             crashcount += crashnum
         cr = CrashRun(run.cycleid, run.algoversion, run.params, run.startdate, datetime.datetime.now(), crashcount)
