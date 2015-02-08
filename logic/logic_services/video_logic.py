@@ -44,6 +44,13 @@ def insert_update_videos_from_path(gps):
 
 def comparevideosfroms3tolocalandadjust(gps):
 
+    videofoldername = ''
+    if gps[consts.crashrunname].val:
+        videofoldername = gps[consts.crashrunvideofoldername].val
+    else:
+        videofoldername = gps[consts.videofoldername].val
+
+
     if gps[consts.crashrunname].val:
         localvideos = list_videos_by_path(gps[consts.crashrunvideofoldername].val)
     else:
@@ -72,12 +79,12 @@ def comparevideosfroms3tolocalandadjust(gps):
             print("Downloading: " + str(s3vid))
             aws_helper.downloadfolderfroms3(consts.awsautomationbucket, awsvideofolder + s3vid, directory + '/')
             print("Zipping: " + str(s3vid))
-            zippy.zip_video_folder(gps[consts.videofoldername].val + s3vid,
-                                   gps[consts.videofoldername].val + s3vid)
+            zippy.zip_video_folder(videofoldername + s3vid,
+                                   videofoldername + s3vid)
             print("Uploading: " + str(s3vid))
             aws_helper.uploadfiletos3(consts.awsautomationbucket,
                                       awsvideofolder + s3vid + '.zip',
-                                      gps[consts.videofoldername].val + s3vid + '.zip')
+                                      videofoldername + s3vid + '.zip')
     return s3videos  #localvideos
 
 
