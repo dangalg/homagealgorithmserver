@@ -14,8 +14,8 @@ def write_to_json(data):
     with open(consts.progressjson, 'w') as outfile:
         json.dump(data, outfile)
 
-def update_progress_json(status, progress, max):
-     data ={"algorun":{"status":status, "value":progress, "max":max}}
+def update_progress_json(status, progress, max, algo_version):
+     data ={"algorun":{"status":status, "value":progress, "max":max, "algo_version":algo_version}}
      write_to_json(data)
 
 def get_progress_json():
